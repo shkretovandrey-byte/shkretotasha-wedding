@@ -340,7 +340,7 @@
   object-fit: cover;
 }
 
-    /* Дресс-код сетка (6 картинок) */
+    /* Дресс-код сетка (4 картинки) */
 .outfit-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -358,6 +358,18 @@
 .outfit-img:hover {
   transform: translateY(-5px) scale(1.02);
   box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+}
+    .color-dot {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.white-dot {
+  background: #ffffff;
+  border: 1px solid #ddd;
 }
 
     /* Галерея образов */
@@ -683,7 +695,7 @@
       <span style="background:#0d3b8e"></span>
       <span style="background:#3f72af"></span>
       <span style="background:#a8c0ff"></span>
-      <span style="background:#ffffff; border:1px solid #ddd;"></span>
+      <span class="color-dot white-dot" title="Белый — только для рубашек"></span>
     </div>
   </div>
 
