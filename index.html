@@ -209,27 +209,41 @@
 }
 
 .palette-box {
-  background: white;
-  padding: 15px;
-  border-radius: 20px;
-  border: 2px solid #0039a6;
-  max-width: 320px;
-  margin: 0 auto 25px;
-  box-shadow: 0 6px 0 #d52b1e;
+  text-align: center;
+  background: #fafafa;
+  padding: 20px;
+  border-radius: 16px;
 }
 
-.color-item {
+.color-palette {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  font-size: 11px;
-  color: #666;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 10px;
 }
 
-.color-item small {
-  margin-top: 4px;
-  letter-spacing: 0.5px;
+.color-dot {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.12);
 }
+
+.white-dot {
+  background: #ffffff;
+  border: 1px solid #ddd;
+}
+
+.palette-note {
+  margin-top: 10px;
+  font-size: 12px;
+  color: #666;
+  letter-spacing: 0.3px;
+}
+
 
     /* Карта */
     .map {
@@ -696,14 +710,12 @@
       <p class="dress-desc">Рекомендуемые оттенки</p>
 
       <div class="color-palette">
+        <p class="palette-note">Белый — только для рубашек</p>
         <span class="color-dot" style="background:#0d3b8e"></span>
         <span class="color-dot" style="background:#3f72af"></span>
         <span class="color-dot" style="background:#a8c0ff"></span>
+        <span class="color-dot" style="background:#ffffff"></span>
 
-        <div class="color-item">
-          <span class="color-dot white-dot"></span>
-          <small>только для рубашек</small>
-        </div>
       </div>
     </div>
 
