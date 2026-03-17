@@ -775,10 +775,10 @@
         onclick="openModal('https://i.pinimg.com/736x/ab/fc/e2/abfce2864d1d8ea06274683194eabc83.jpg','Женский образ 2')">
       </div>
 
-      <div class="outfit-img"
-        style="background-image:url('https://i.pinimg.com/control1/736x/6f/f6/06/6ff606a6471fdd4bb80841dadf07c3d3.jpg)"
-        onclick="openModal('https://i.pinimg.com/control1/736x/6f/f6/06/6ff606a6471fdd4bb80841dadf07c3d3.jpg','Женский образ 3')">
-      </div>
+<div class="outfit-img"
+  style="background-image:url('https://i.pinimg.com/control1/736x/6f/f6/06/6ff606a6471fdd4bb80841dadf07c3d3.jpg')"
+  onclick="openModal('https://i.pinimg.com/control1/736x/6f/f6/06/6ff606a6471fdd4bb80841dadf07c3d3.jpg','Женский образ 3')">
+</div>
 
       <div class="outfit-img"
         style="background-image:url('https://i.pinimg.com/1200x/be/a9/a1/bea9a159635a02191c37ac9d5cc4b616.jpg')"
@@ -928,9 +928,7 @@
       const modalDesc = document.getElementById('modalDesc');
       const closeModal = document.getElementById('closeModal');
 
-window.openModal = function(imgStyle, desc) {
-  const match = imgStyle.match(/url\(['"]?(.*?)['"]?\)/);
-  const url = match ? match[1] : '';
+window.openModal = function(url, desc) {
   modalImg.src = url;
   modalDesc.innerText = desc;
   modal.classList.add('active');
