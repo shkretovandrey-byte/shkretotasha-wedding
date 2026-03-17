@@ -34,16 +34,29 @@
     }
 
     /* Заголовки секций */
-    .section-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 38px;
-      text-align: center;
-      margin-bottom: 40px;
-      color: #0039a6;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-text-shadow: none;
-    }
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 34px;
+  text-align: center;
+  margin-bottom: 40px;
+  color: #111;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  position: relative;
+  display: inline-block;
+  padding: 10px 25px;
+  background: white;
+  border-radius: 40px;
+}
+    .section-title::after {
+  content: "";
+  display: block;
+  width: 60%;
+  height: 3px;
+  margin: 10px auto 0;
+  background: linear-gradient(90deg, #0039a6, #d52b1e);
+  border-radius: 2px;
+}
 
     /* Карточки */
     .card {
@@ -179,6 +192,28 @@ text-shadow: none;
       color: white;
       border-color: #d52b1e;
     }
+
+    /* deress-desc */
+    .dress-desc {
+  text-align: center;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.color-palette {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.color-palette span {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
 
     /* Карта */
     .map {
@@ -408,10 +443,21 @@ text-shadow: none;
       .container {
         padding: 40px 15px;
       }
-      .section-title {
-        font-size: 32px;
-        margin-bottom: 30px;
+  .section-title {
+    font-size: 26px;
+    padding: 8px 16px;
       }
+
+        .outfit-grid {
+    gap: 12px;
+  }
+
+  .color-palette span {
+    width: 30px;
+    height: 30px;
+  }
+
+      
       .invite {
         font-size: 36px;
       }
@@ -614,8 +660,14 @@ text-shadow: none;
       <button class="slide-btn" data-slide="female">Женский</button>
     </div>
     <div id="dressMale" class="dress-pane" style="display: block;">
-      <p style="margin-bottom: 15px;"><strong>Рекомендации:</strong> костюмы синего/голубого оттенка, белая рубашка.</p>
-<div class="outfit-grid">
+<p class="dress-desc">Рекомендуемые оттенки</p>
+
+<div class="color-palette">
+  <span style="background:#0d3b8e"></span>
+  <span style="background:#3f72af"></span>
+  <span style="background:#a8c0ff"></span>
+  <span style="background:#ffffff; border:1px solid #ddd;"></span>
+</div>
   <div class="outfit-img" style="background-image: url('https://i.pinimg.com/1200x/4e/0d/48/4e0d486fd5d57d941a62e1311148af8a.jpg');" onclick="openModal(this.style.backgroundImage, 'Образ 1')"></div>
   <div class="outfit-img" style="background-image: url('https://i.pinimg.com/1200x/26/d2/3f/26d23fe4e8abf00c9fc1365a7e8222b8.jpg');" onclick="openModal(this.style.backgroundImage, 'Образ 2')"></div>
   <div class="outfit-img" style="background-image: url('https://i.pinimg.com/1200x/6c/e0/2a/6ce02a12a25616ea518ac680b9105120.jpg');" onclick="openModal(this.style.backgroundImage, 'Образ 3')"></div>
@@ -623,8 +675,14 @@ text-shadow: none;
 </div>
     </div>
     <div id="dressFemale" class="dress-pane" style="display: none;">
-      <p style="margin-bottom: 15px;"><strong>Рекомендованные цвета платьев:</strong> алый, красный, синий, голубой.</p>
-<div class="outfit-grid">
+<p class="dress-desc">Рекомендуемые оттенки</p>
+
+<div class="color-palette">
+  <span style="background:#d52b1e"></span>
+  <span style="background:#ff4d6d"></span>
+  <span style="background:#0039a6"></span>
+  <span style="background:#7fb3ff"></span>
+</div>
   <div class="outfit-img" style="background-image: url('https://i.pinimg.com/1200x/65/be/ea/65beeadb9081050ac5f2bccb048a00ac.jpg');" onclick="openModal(this.style.backgroundImage, 'Образ 1')"></div>
   <div class="outfit-img" style="background-image: url('https://i.pinimg.com/736x/ab/fc/e2/abfce2864d1d8ea06274683194eabc83.jpg');" onclick="openModal(this.style.backgroundImage, 'Образ 2')"></div>
   <div class="outfit-img" style="background-image: url('https://i.pinimg.com/control1/736x/6f/f6/06/6ff606a6471fdd4bb80841dadf07c3d3.jpg');" onclick="openModal(this.style.backgroundImage, 'Образ 3')"></div>
