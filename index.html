@@ -280,33 +280,35 @@
     .mem-image-link:hover {
       transform: scale(1.02);
     }
-    .mem-image {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
+.mem-image {
+  width: 100%;
+  max-width: 420px;
+  border-radius: 16px;
+  border: 3px solid #0039a6;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  object-fit: cover;
+}
 
     /* Дресс-код сетка (6 картинок) */
-    .outfit-grid {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 15px;
-      margin-top: 20px;
-    }
-    .outfit-img {
-      height: 180px;
-      background-size: cover;
-      background-position: center;
-      border-radius: 8px;
-      cursor: pointer;
-      border: 3px solid #0039a6;
-      box-shadow: 0 4px 0 #d52b1e;
-      transition: 0.3s;
-    }
-    .outfit-img:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 0 #d52b1e;
-    }
+.outfit-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-top: 20px;
+}
+.outfit-img {
+  aspect-ratio: 3/4;
+  background-size: cover;
+  background-position: center;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+}
+.outfit-img:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+}
 
     /* Галерея образов */
     .gallery-grid {
@@ -368,16 +370,13 @@
       color: #d52b1e;
       line-height: 1;
     }
-    .modal-img {
-      width: 100%;
-      height: 300px;
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center;
-      background-color: #f0f0f0;
-      border-radius: 8px;
-      margin-bottom: 10px;
-    }
+.modal-img {
+  width: 100%;
+  height: 70vh;
+  background-size: cover;
+  background-position: center;
+  border-radius: 12px;
+}
 
     /* Капча */
     .captcha-box {
@@ -561,13 +560,13 @@
   </section>
 
   <!-- МЕМ 1 (Pinterest) -->
-  <section class="container">
-    <div class="mem-container">
-      <div class="mem-frame">
-        <iframe src="https://assets.pinterest.com/ext/embed.html?id=470907704809158149" height="470" width="450" frameborder="0" scrolling="no" style="max-width:100%;"></iframe>
-      </div>
-    </div>
-  </section>
+<section class="container">
+  <div class="mem-container">
+    <img src="https://i.pinimg.com/736x/15/54/5c/15545cc74b98e474f55b38edf0f71d3e.jpg" 
+         alt="Мем" 
+         class="mem-image">
+  </div>
+</section>
 
   <!-- ПРОГРАММА ДНЯ -->
   <section class="container">
@@ -616,25 +615,21 @@
     </div>
     <div id="dressMale" class="dress-pane" style="display: block;">
       <p style="margin-bottom: 15px;"><strong>Рекомендации:</strong> костюмы синего/голубого оттенка, белая рубашка.</p>
-      <div class="outfit-grid">
-        <div class="outfit-img" style="background-image: url('https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=200&h=250&fit=crop');" onclick="openModal(this.style.backgroundImage, 'Синий костюм')"></div>
-        <div class="outfit-img" style="background-image: url('https://images.unsplash.com/photo-1593030761757-71fae45fa3e1?w=200&h=250&fit=crop');" onclick="openModal(this.style.backgroundImage, 'Голубой костюм')"></div>
-        <div class="outfit-img" style="background-image: url('https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3?w=200&h=250&fit=crop');" onclick="openModal(this.style.backgroundImage, 'Белая рубашка')"></div>
-        <div class="outfit-img" style="background-image: url('https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=200&h=250&fit=crop');" onclick="openModal(this.style.backgroundImage, 'Аксессуары')"></div>
-        <div class="outfit-img" style="background-image: url('https://images.unsplash.com/photo-1617137968427-85924c800a22?w=200&h=250&fit=crop');" onclick="openModal(this.style.backgroundImage, 'Синий галстук')"></div>
-        <div class="outfit-img" style="background-image: url('https://images.unsplash.com/photo-1582478314680-b2d9a7d7b6e9?w=200&h=250&fit=crop');" onclick="openModal(this.style.backgroundImage, 'Запонки')"></div>
-      </div>
+<div class="outfit-grid">
+  <div class="outfit-img" style="background-image: url('https://i.pinimg.com/1200x/4e/0d/48/4e0d486fd5d57d941a62e1311148af8a.jpg');" onclick="openModal(this.style.backgroundImage, 'Образ 1')"></div>
+  <div class="outfit-img" style="background-image: url('https://i.pinimg.com/1200x/26/d2/3f/26d23fe4e8abf00c9fc1365a7e8222b8.jpg');" onclick="openModal(this.style.backgroundImage, 'Образ 2')"></div>
+  <div class="outfit-img" style="background-image: url('https://i.pinimg.com/1200x/6c/e0/2a/6ce02a12a25616ea518ac680b9105120.jpg');" onclick="openModal(this.style.backgroundImage, 'Образ 3')"></div>
+  <div class="outfit-img" style="background-image: url('https://i.pinimg.com/1200x/32/96/c6/3296c66da30a53fd66edfe145b373c7e.jpg');" onclick="openModal(this.style.backgroundImage, 'Образ 4')"></div>
+</div>
     </div>
     <div id="dressFemale" class="dress-pane" style="display: none;">
       <p style="margin-bottom: 15px;"><strong>Рекомендованные цвета платьев:</strong> алый, красный, синий, голубой.</p>
-      <div class="outfit-grid">
-        <div class="outfit-img" style="background-image: url('https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?w=200&h=250&fit=crop');" onclick="openModal(this.style.backgroundImage, 'Алое платье')"></div>
-        <div class="outfit-img" style="background-image: url('https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=200&h=250&fit=crop');" onclick="openModal(this.style.backgroundImage, 'Красное платье')"></div>
-        <div class="outfit-img" style="background-image: url('https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=200&h=250&fit=crop');" onclick="openModal(this.style.backgroundImage, 'Синее платье')"></div>
-        <div class="outfit-img" style="background-image: url('https://images.unsplash.com/photo-1581044777550-4cfa60707c03?w=200&h=250&fit=crop');" onclick="openModal(this.style.backgroundImage, 'Голубое платье')"></div>
-        <div class="outfit-img" style="background-image: url('https://images.unsplash.com/photo-1604904612715-47bf9d9bc670?w=200&h=250&fit=crop');" onclick="openModal(this.style.backgroundImage, 'Красные туфли')"></div>
-        <div class="outfit-img" style="background-image: url('https://images.unsplash.com/photo-1539008835657-9e8e9680c956?w=200&h=250&fit=crop');" onclick="openModal(this.style.backgroundImage, 'Вечерний клатч')"></div>
-      </div>
+<div class="outfit-grid">
+  <div class="outfit-img" style="background-image: url('https://i.pinimg.com/1200x/65/be/ea/65beeadb9081050ac5f2bccb048a00ac.jpg');" onclick="openModal(this.style.backgroundImage, 'Образ 1')"></div>
+  <div class="outfit-img" style="background-image: url('https://i.pinimg.com/736x/ab/fc/e2/abfce2864d1d8ea06274683194eabc83.jpg');" onclick="openModal(this.style.backgroundImage, 'Образ 2')"></div>
+  <div class="outfit-img" style="background-image: url('https://i.pinimg.com/control1/736x/6f/f6/06/6ff606a6471fdd4bb80841dadf07c3d3.jpg');" onclick="openModal(this.style.backgroundImage, 'Образ 3')"></div>
+  <div class="outfit-img" style="background-image: url('https://i.pinimg.com/1200x/be/a9/a1/bea9a159635a02191c37ac9d5cc4b616.jpg');" onclick="openModal(this.style.backgroundImage, 'Образ 4')"></div>
+</div>
     </div>
   </section>
 
