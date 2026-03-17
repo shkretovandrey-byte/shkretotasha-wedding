@@ -209,12 +209,18 @@
 }
 
 .palette-box {
+  max-width: 420px;
+  margin: 0 auto;
   text-align: center;
   background: #fafafa;
-  padding: 20px;
+  padding: 20px 18px;
   border-radius: 16px;
 }
-
+.palette-note {
+  margin-top: 14px;
+  font-size: 12px;
+  color: #666;
+}
 .color-palette {
   display: flex;
   justify-content: center;
@@ -695,6 +701,7 @@
   </section>
 
  <!-- ДРЕСС-КОД -->
+
 <section class="container">
   <h2 class="section-title">Дресс-код</h2>
 
@@ -710,20 +717,35 @@
       <p class="dress-desc">Рекомендуемые оттенки</p>
 
       <div class="color-palette">
-        <p class="palette-note">Белый — только для рубашек</p>
         <span class="color-dot" style="background:#0d3b8e"></span>
         <span class="color-dot" style="background:#3f72af"></span>
         <span class="color-dot" style="background:#a8c0ff"></span>
-        <span class="color-dot" style="background:#ffffff"></span>
-
+        <span class="color-dot white-dot"></span>
       </div>
+
+      <p class="palette-note">Белый — только для рубашек</p>
     </div>
 
     <div class="outfit-grid">
-      <div class="outfit-img" style="background-image:url('https://i.pinimg.com/1200x/4e/0d/48/4e0d486fd5d57d941a62e1311148af8a.jpg')"></div>
-      <div class="outfit-img" style="background-image:url('https://i.pinimg.com/1200x/26/d2/3f/26d23fe4e8abf00c9fc1365a7e8222b8.jpg')"></div>
-      <div class="outfit-img" style="background-image:url('https://i.pinimg.com/1200x/6c/e0/2a/6ce02a12a25616ea518ac680b9105120.jpg')"></div>
-      <div class="outfit-img" style="background-image:url('https://i.pinimg.com/1200x/32/96/c6/3296c66da30a53fd66edfe145b373c7e.jpg')"></div>
+      <div class="outfit-img"
+        style="background-image:url('https://i.pinimg.com/1200x/4e/0d/48/4e0d486fd5d57d941a62e1311148af8a.jpg')"
+        onclick="openModal('https://i.pinimg.com/1200x/4e/0d/48/4e0d486fd5d57d941a62e1311148af8a.jpg','Образ 1')">
+      </div>
+
+      <div class="outfit-img"
+        style="background-image:url('https://i.pinimg.com/1200x/26/d2/3f/26d23fe4e8abf00c9fc1365a7e8222b8.jpg')"
+        onclick="openModal('https://i.pinimg.com/1200x/26/d2/3f/26d23fe4e8abf00c9fc1365a7e8222b8.jpg','Образ 2')">
+      </div>
+
+      <div class="outfit-img"
+        style="background-image:url('https://i.pinimg.com/1200x/6c/e0/2a/6ce02a12a25616ea518ac680b9105120.jpg')"
+        onclick="openModal('https://i.pinimg.com/1200x/6c/e0/2a/6ce02a12a25616ea518ac680b9105120.jpg','Образ 3')">
+      </div>
+
+      <div class="outfit-img"
+        style="background-image:url('https://i.pinimg.com/1200x/32/96/c6/3296c66da30a53fd66edfe145b373c7e.jpg')"
+        onclick="openModal('https://i.pinimg.com/1200x/32/96/c6/3296c66da30a53fd66edfe145b373c7e.jpg','Образ 4')">
+      </div>
     </div>
 
   </div>
@@ -743,14 +765,31 @@
     </div>
 
     <div class="outfit-grid">
-      <div class="outfit-img" style="background-image:url('https://i.pinimg.com/1200x/65/be/ea/65beeadb9081050ac5f2bccb048a00ac.jpg')"></div>
-      <div class="outfit-img" style="background-image:url('https://i.pinimg.com/736x/ab/fc/e2/abfce2864d1d8ea06274683194eabc83.jpg')"></div>
-      <div class="outfit-img" style="background-image:url('https://i.pinimg.com/control1/736x/6f/f6/06/6ff606a6471fdd4bb80841dadf07c3d3.jpg')"></div>
-      <div class="outfit-img" style="background-image:url('https://i.pinimg.com/1200x/be/a9/a1/bea9a159635a02191c37ac9d5cc4b616.jpg')"></div>
+      <div class="outfit-img"
+        style="background-image:url('https://i.pinimg.com/1200x/65/be/ea/65beeadb9081050ac5f2bccb048a00ac.jpg')"
+        onclick="openModal('https://i.pinimg.com/1200x/65/be/ea/65beeadb9081050ac5f2bccb048a00ac.jpg','Женский образ 1')">
+      </div>
+
+      <div class="outfit-img"
+        style="background-image:url('https://i.pinimg.com/736x/ab/fc/e2/abfce2864d1d8ea06274683194eabc83.jpg')"
+        onclick="openModal('https://i.pinimg.com/736x/ab/fc/e2/abfce2864d1d8ea06274683194eabc83.jpg','Женский образ 2')">
+      </div>
+
+      <div class="outfit-img"
+        style="background-image:url('https://i.pinimg.com/control1/736x/6f/f6/06/6ff606a6471fdd4bb80841dadf07c3d3.jpg)"
+        onclick="openModal('https://i.pinimg.com/control1/736x/6f/f6/06/6ff606a6471fdd4bb80841dadf07c3d3.jpg','Женский образ 3')">
+      </div>
+
+      <div class="outfit-img"
+        style="background-image:url('https://i.pinimg.com/1200x/be/a9/a1/bea9a159635a02191c37ac9d5cc4b616.jpg')"
+        onclick="openModal('https://i.pinimg.com/1200x/be/a9/a1/bea9a159635a02191c37ac9d5cc4b616.jpg','Женский образ 4')">
+      </div>
+
     </div>
 
   </div>
-  </section>
+</section>
+
 
   <!-- ГАЛЕРЕЯ ОБРАЗОВ (обновлённые картинки) -->
   <section class="container">
