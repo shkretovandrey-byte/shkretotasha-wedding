@@ -680,56 +680,64 @@
     </div>
   </section>
 
-  <!-- ДРЕСС-КОД со слайдером и 4 картинками -->
-  <section class="container">
-    <h2 class="section-title">Дресс-код</h2>
-    <div class="dress-slider">
-      <button class="slide-btn active" data-slide="male">Мужской</button>
-      <button class="slide-btn" data-slide="female">Женский</button>
+ <!-- ДРЕСС-КОД -->
+<section class="container">
+  <h2 class="section-title">Дресс-код</h2>
+
+  <div class="dress-slider">
+    <button class="slide-btn active" data-slide="male">Мужской</button>
+    <button class="slide-btn" data-slide="female">Женский</button>
+  </div>
+
+  <!-- МУЖСКОЙ -->
+  <div id="dressMale" class="dress-pane" style="display: block;">
+
+    <div class="palette-box">
+      <p class="dress-desc">Рекомендуемые оттенки</p>
+
+      <div class="color-palette">
+        <span class="color-dot" style="background:#0d3b8e"></span>
+        <span class="color-dot" style="background:#3f72af"></span>
+        <span class="color-dot" style="background:#a8c0ff"></span>
+
+        <div class="color-item">
+          <span class="color-dot white-dot"></span>
+          <small>только для рубашек</small>
+        </div>
+      </div>
     </div>
-   <div id="dressMale" class="dress-pane" style="display: block;">
 
-  <div class="palette-box">
-    <p class="dress-desc">Рекомендуемые оттенки</p>
-    <div class="color-palette">
-      <span style="background:#0d3b8e"></span>
-      <span style="background:#3f72af"></span>
-      <span style="background:#a8c0ff"></span>
-<div class="color-item special">
-<div class="color-item">
-  <span class="color-dot" style="background:#ffffff; border:1px solid #ddd;"></span>
-  <small>для рубашек</small>
-</div>    </div>
-  </div>
-
-  <div class="outfit-grid">
-    <div class="outfit-img" style="background-image: url('https://i.pinimg.com/1200x/4e/0d/48/4e0d486fd5d57d941a62e1311148af8a.jpg');" onclick="openModal(this.style.backgroundImage, 'Образ 1')"></div>
-    <div class="outfit-img" style="background-image: url('https://i.pinimg.com/1200x/26/d2/3f/26d23fe4e8abf00c9fc1365a7e8222b8.jpg');" onclick="openModal(this.style.backgroundImage, 'Образ 2')"></div>
-    <div class="outfit-img" style="background-image: url('https://i.pinimg.com/1200x/6c/e0/2a/6ce02a12a25616ea518ac680b9105120.jpg');" onclick="openModal(this.style.backgroundImage, 'Образ 3')"></div>
-    <div class="outfit-img" style="background-image: url('https://i.pinimg.com/1200x/32/96/c6/3296c66da30a53fd66edfe145b373c7e.jpg');" onclick="openModal(this.style.backgroundImage, 'Образ 4')"></div>
-  </div>
-
-</div>
-   <div id="dressFemale" class="dress-pane" style="display: none;">
- 
-  <div class="palette-box">
-    <p class="dress-desc">Рекомендуемые оттенки</p>
-    <div class="color-palette">
-      <span style="background:#d52b1e"></span>
-      <span style="background:#ff4d6d"></span>
-      <span style="background:#0039a6"></span>
-      <span style="background:#7fb3ff; border:1px solid #ddd;"></span>
+    <div class="outfit-grid">
+      <div class="outfit-img" style="background-image:url('https://i.pinimg.com/1200x/4e/0d/48/4e0d486fd5d57d941a62e1311148af8a.jpg')"></div>
+      <div class="outfit-img" style="background-image:url('https://i.pinimg.com/1200x/26/d2/3f/26d23fe4e8abf00c9fc1365a7e8222b8.jpg')"></div>
+      <div class="outfit-img" style="background-image:url('https://i.pinimg.com/1200x/6c/e0/2a/6ce02a12a25616ea518ac680b9105120.jpg')"></div>
+      <div class="outfit-img" style="background-image:url('https://i.pinimg.com/1200x/32/96/c6/3296c66da30a53fd66edfe145b373c7e.jpg')"></div>
     </div>
+
   </div>
 
-  <div class="outfit-grid">
-    <div class="outfit-img" style="background-image: url('https://i.pinimg.com/1200x/65/be/ea/65beeadb9081050ac5f2bccb048a00ac.jpg');" onclick="openModal(this.style.backgroundImage, 'Образ 1')"></div>
-    <div class="outfit-img" style="background-image: url('https://i.pinimg.com/736x/ab/fc/e2/abfce2864d1d8ea06274683194eabc83.jpg');" onclick="openModal(this.style.backgroundImage, 'Образ 2')"></div>
-    <div class="outfit-img" style="background-image: url('https://i.pinimg.com/control1/736x/6f/f6/06/6ff606a6471fdd4bb80841dadf07c3d3.jpg');" onclick="openModal(this.style.backgroundImage, 'Образ 3')"></div>
-    <div class="outfit-img" style="background-image: url('https://i.pinimg.com/1200x/be/a9/a1/bea9a159635a02191c37ac9d5cc4b616.jpg');" onclick="openModal(this.style.backgroundImage, 'Образ 4')"></div>
-  </div>
+  <!-- ЖЕНСКИЙ -->
+  <div id="dressFemale" class="dress-pane" style="display: none;">
 
-</div>
+    <div class="palette-box">
+      <p class="dress-desc">Рекомендуемые оттенки</p>
+
+      <div class="color-palette">
+        <span class="color-dot" style="background:#d52b1e"></span>
+        <span class="color-dot" style="background:#ff4d6d"></span>
+        <span class="color-dot" style="background:#0039a6"></span>
+        <span class="color-dot" style="background:#7fb3ff"></span>
+      </div>
+    </div>
+
+    <div class="outfit-grid">
+      <div class="outfit-img" style="background-image:url('https://i.pinimg.com/1200x/65/be/ea/65beeadb9081050ac5f2bccb048a00ac.jpg')"></div>
+      <div class="outfit-img" style="background-image:url('https://i.pinimg.com/736x/ab/fc/e2/abfce2864d1d8ea06274683194eabc83.jpg')"></div>
+      <div class="outfit-img" style="background-image:url('https://i.pinimg.com/control1/736x/6f/f6/06/6ff606a6471fdd4bb80841dadf07c3d3.jpg')"></div>
+      <div class="outfit-img" style="background-image:url('https://i.pinimg.com/1200x/be/a9/a1/bea9a159635a02191c37ac9d5cc4b616.jpg')"></div>
+    </div>
+
+  </div>
   </section>
 
   <!-- ГАЛЕРЕЯ ОБРАЗОВ (обновлённые картинки) -->
