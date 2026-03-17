@@ -849,7 +849,38 @@
 
         <textarea id="wishes" placeholder="Пожелания (по желанию)" rows="3"></textarea>
 
-        <input type="text" id="source" placeholder="Откуда вы узнали о свадьбе?">
+< * fucking waiting *> 
+<div style="margin: 15px 0;">
+  <label>Ваши ожидания от свадьбы:</label>
+  <input type="text" id="expectations" placeholder="Кликните, чтобы посмотреть видео" readonly style="cursor: pointer; background-color: #f9f9f9;">
+</div>
+
+<!-- Модальное окно для видео -->
+<div class="modal" id="videoModal">
+  <div class="modal-content">
+    <span class="close" id="closeVideoModal">&times;</span>
+    <iframe src="https://vkvideo.ru/video_ext.php?oid=-200267372&id=456239297&hash=d92f876fad263708" width="426" height="240" allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;" frameborder="0" allowfullscreen></iframe>
+  </div>
+</div>
+
+<script>
+  const expectationsInput = document.getElementById('expectations');
+  const videoModal = document.getElementById('videoModal');
+  const closeVideoModal = document.getElementById('closeVideoModal');
+
+  expectationsInput.addEventListener('click', () => {
+    videoModal.classList.add('active');
+  });
+
+  closeVideoModal.addEventListener('click', () => {
+    videoModal.classList.remove('active');
+  });
+
+  window.addEventListener('click', (e) => {
+    if (e.target === videoModal) videoModal.classList.remove('active');
+  });
+</script>
+        
         <input type="text" id="song" placeholder="Любимая песня для первого танца?">
         <input type="url" id="photoLink" placeholder="Ссылка на фото-поздравление">
 
