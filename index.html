@@ -218,17 +218,17 @@
   box-shadow: 0 6px 0 #d52b1e;
 }
 
-.color-palette {
+.color-item {
   display: flex;
-  justify-content: center;
-  gap: 12px;
+  flex-direction: column;
+  align-items: center;
+  font-size: 11px;
+  color: #666;
 }
-.color-palette span {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  display: inline-block;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+
+.color-item small {
+  margin-top: 4px;
+  letter-spacing: 0.5px;
 }
 
     /* Карта */
@@ -696,8 +696,10 @@
       <span style="background:#3f72af"></span>
       <span style="background:#a8c0ff"></span>
 <div class="color-item special">
-<span class="color-dot white-dot" title="Белый — только для рубашек"></span>
-    </div>
+<div class="color-item">
+  <span class="color-dot" style="background:#ffffff; border:1px solid #ddd;"></span>
+  <small>для рубашек</small>
+</div>    </div>
   </div>
 
   <div class="outfit-grid">
