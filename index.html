@@ -1017,7 +1017,7 @@ window.openModal = function(url, desc) {
 
         let message = `✅ Новое подтверждение%0AИмя: ${name}%0AТелефон: ${phone}%0AПрисутствует: ${attend}%0A+1: ${plusOne}`;
         if (plusOneName) message += `%0AИмя +1: ${plusOneName}`;
-        message += `%0AАлкоголь: ${alcohols}%0AПожелания: ${wishes}%0AОткуда узнали: ${source}%0AЛюбимая песня: ${song}%0AФото: ${photo}`;
+        message += `%0AАлкоголь: ${alcohols}%0AПожелания: ${wishes}%0AЛюбимая песня: ${song}%0AФото: ${photo}`;
 
         const telegramUrl = `https://t.me/carambamen?text=${message}`;
         window.open(telegramUrl, '_blank');
