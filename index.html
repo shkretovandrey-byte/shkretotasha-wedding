@@ -796,17 +796,17 @@
     <h2 class="section-title">Галерея образов</h2>
     <div class="gallery-grid">
       <!-- Нежный образ #1 -->
-      <div class="gallery-item" onclick="openModal('(https://avatars.mds.yandex.net/i?id=1215ba276bf2b612dc8056c0ebf152d4_sr-5353994-images-thumbs&n=13)', 'Нежный образ #1')">
+      <div class="gallery-item" onclick="openModal('https://avatars.mds.yandex.net/i?id=1215ba276bf2b612dc8056c0ebf152d4_sr-5353994-images-thumbs&n=13', 'Нежный образ #1')">
         <div class="gallery-img" style="background-image: url('https://avatars.mds.yandex.net/i?id=1215ba276bf2b612dc8056c0ebf152d4_sr-5353994-images-thumbs&n=13');"></div>
         <div class="gallery-caption">Нежный образ #1</div>
       </div>
       <!-- Стильный жених -->
-      <div class="gallery-item" onclick="openModal('(https://avatars.mds.yandex.net/i?id=bfa3f2f830614b2ac6e7f80d47ff919a_l-6976749-images-thumbs&n=13)', 'Стильный жених')">
+      <div class="gallery-item" onclick="openModal('https://avatars.mds.yandex.net/i?id=bfa3f2f830614b2ac6e7f80d47ff919a_l-6976749-images-thumbs&n=13', 'Стильный жених')">
         <div class="gallery-img" style="background-image: url('https://avatars.mds.yandex.net/i?id=bfa3f2f830614b2ac6e7f80d47ff919a_l-6976749-images-thumbs&n=13');"></div>
         <div class="gallery-caption">Стильный жених</div>
       </div>
       <!-- Вечерний шик -->
-      <div class="gallery-item" onclick="openModal('(https://s00.yaplakal.com/pics/pics_original/6/1/1/11318116.jpg)', 'Вечерний шик')">
+      <div class="gallery-item" onclick="openModal('https://s00.yaplakal.com/pics/pics_original/6/1/1/11318116.jpg', 'Вечерний шик')">
         <div class="gallery-img" style="background-image: url('https://s00.yaplakal.com/pics/pics_original/6/1/1/11318116.jpg');"></div>
         <div class="gallery-caption">Вечерний шик</div>
       </div>
@@ -1017,13 +1017,14 @@ document.getElementById('sendToTelegram').addEventListener('click', async functi
   };
 
   try {
-    await fetch("https://script.google.com/macros/library/d/1CyXStcgjEroyM5XguS-eqX0zomOcR3CzPhCHHprQBK4kdKb4YlpLfkiA/1", {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    });
+    await fetch("https://script.google.com/macros/s/AKfycbyMVmJ9UhzL39YCXptUkhTwoPUlPTA4-5QOf0SCxyV3d8bOgGGJ42PMt55c7o8NTHTZ/exec", {
+  method: "POST",
+  mode: "no-cors",
+  body: JSON.stringify(data),
+  headers: {
+    "Content-Type": "application/json"
+  }
+});
 
     alert('Спасибо! Ответ сохранён 💍');
 
