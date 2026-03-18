@@ -351,6 +351,19 @@
   line-height: 1.4;
 }
 
+    #plusOne {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+}
+
+.checkbox-group label,
+.form-group label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
     /* Плеер */
     .music-player {
       position: fixed;
@@ -511,12 +524,20 @@
 }
 
     /* Капча */
-    .captcha-box {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      flex-wrap: wrap;
-    }
+.captcha-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: nowrap;
+}
+
+.captcha-question {
+  flex: 0 0 auto;
+}
+
+#captcha {
+  width: 120px;
+}
     .captcha-question {
       background: #eef3fc;
       padding: 12px 18px;
