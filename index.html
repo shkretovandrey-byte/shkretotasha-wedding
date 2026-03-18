@@ -7,6 +7,7 @@
   <!-- Шрифты: Playfair Display, Inter, Marck Script -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;600&family=Marck+Script&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -82,7 +83,7 @@
   justify-content: center;
   text-align: center;
   position: relative;
-  background: #0b0f1a; /* тёмный торжественный фон */
+  background: #ffffff;
   overflow: hidden;
 }
 
@@ -93,30 +94,16 @@
   inset: 0;
   background: linear-gradient(
     180deg,
-    rgba(255,255,255,0.10) 0%,
-    rgba(255,255,255,0.10) 33%,
-    rgba(0,57,166,0.18) 33%,
-    rgba(0,57,166,0.18) 66%,
-    rgba(213,43,30,0.18) 66%,
-    rgba(213,43,30,0.18) 100%
+    rgba(0,57,166,0.06) 0%,
+    rgba(0,57,166,0.06) 33%,
+    rgba(213,43,30,0.06) 66%,
+    rgba(213,43,30,0.06) 100%
   );
-  background-size: 100% 200%;
-  animation: flagMove 18s linear infinite;
+  background-size: 100% 300%;
+  animation: flagMove 25s linear infinite;
   z-index: 0;
 }
-
-/* Лёгкий затемняющий слой для глубины */
-.hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    circle at center,
-    rgba(0,0,0,0.2) 0%,
-    rgba(0,0,0,0.6) 100%
-  );
-  z-index: 0;
-}
+    
 
 /* Контент Hero */
 .hero-content {
@@ -133,10 +120,12 @@
 /* Текст */
 
 .invite {
-  font-size: 18px;
-  letter-spacing: 5px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  letter-spacing: 6px;
   text-transform: uppercase;
-  color: #0039a6;
+  color: #ffffff;
   margin-bottom: 25px;
 }
 
@@ -162,12 +151,8 @@
 /* Анимации */
 
 @keyframes flagMove {
-  from {
-    background-position: 0 0;
-  }
-  to {
-    background-position: 0 200%;
-  }
+  from { background-position: 0 0; }
+  to { background-position: 0 300%; }
 }
 
 @keyframes heroFade {
