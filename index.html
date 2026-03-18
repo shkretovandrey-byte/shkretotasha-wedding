@@ -996,31 +996,42 @@ window.openModal = function(url, desc) {
       const captchaAnswer = num1 + num2;
 
       // Отправка в Telegram
-      document.getElementById('sendToTelegram').addEventListener('click', function() {
-        const captchaInput = document.getElementById('captcha').value.trim();
-        if (parseInt(captchaInput) !== captchaAnswer) {
-          alert('Неправильный ответ на капчу');
-          return;
-        }
+document.getElementById('sendToTelegram').addEventListener('click', async function() {
+  const captchaInput = document.getElementById('captcha').value.trim();
+  if (parseInt(captchaInput) !== captchaAnswer) {
+    alert('Неправильный ответ на капчу');
+    return;
+  }
 
-        const name = document.getElementById('name').value.trim() || 'не указано';
-        const phone = document.getElementById('phone').value.trim() || 'не указано';
-        const attend = document.querySelector('input[name="attend"]:checked')?.value || 'не выбрано';
-        const plusOne = document.getElementById('plusOne').checked ? 'Да' : 'Нет';
-        const plusOneName = document.getElementById('plusOneName').value.trim() || '';
-        const alcohols = [...document.querySelectorAll('#rsvpForm .checkbox-group input:checked')].map(cb => cb.value).join(', ') || 'не выбрано';
-        const wishes = document.getElementById('wishes').value.trim() || 'нет';
-        const song = document.getElementById('song').value.trim() || 'не указана';
-        const photo = document.getElementById('photoLink').value.trim() || 'нет';
+  const data = {
+    name: document.getElementById('name').value.trim() || 'не указано',
+    phone: document.getElementById('phone').value.trim() || 'не указано',
+    attend: document.querySelector('input[name="attend"]:checked')?.value || 'не выбрано',
+    plusOne: document.getElementById('plusOne').checked ? 'Да' : 'Нет',
+    plusOneName: document.getElementById('plusOneName').value.trim() || '',
+    alcohol: [...document.querySelectorAll('#rsvpForm .checkbox-group input:checked')]
+      .map(cb => cb.value).join(', ') || 'не выбрано',
+    wishes: document.getElementById('wishes').value.trim() || 'нет',
+    song: document.getElementById('song').value.trim() || 'не указана',
+    photo: document.getElementById('photoLink').value.trim() || 'нет'
+  };
 
-        let message = `✅ Новое подтверждение%0AИмя: ${name}%0AТелефон: ${phone}%0AПрисутствует: ${attend}%0A+1: ${plusOne}`;
-        if (plusOneName) message += `%0AИмя +1: ${plusOneName}`;
-        message += `%0AАлкоголь: ${alcohols}%0AПожелания: ${wishes}%0AЛюбимая песня: ${song}%0AФото: ${photo}`;
+  try {
+    await fetch("https://script.google.com/macros/s/AKfycbyMVmJ9UhzL39YCXptUkhTwoPUlPTA4-5QOf0SCxyV3d8bOgGGJ42PMt55c7o8NTHTZ/exec", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
 
-        const telegramUrl = `https://t.me/carambamen?text=${message}`;
-        window.open(telegramUrl, '_blank');
-        alert('Спасибо! Перенаправляем в Telegram для отправки.');
-      });
+    alert('Спасибо! Ответ сохранён 💍');
+
+  } catch (error) {
+    alert('Ошибка отправки 😢');
+    console.error(error);
+  }
+});
 
       // Плеер
       const audio = document.getElementById('music');
