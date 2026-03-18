@@ -945,7 +945,7 @@
 </div>
 
 <div id="plusOneBlock" style="display:none; margin:15px 0;">
-  
+
   <label style="font-weight:600;">
     Будете ли вы с +1?
   </label>
@@ -960,6 +960,11 @@
       <input type="radio" name="plusOne" value="Нет" checked>
       <span>Нет</span>
     </label>
+  </div>
+
+  <!-- 🔥 ПОЛЕ ИМЕНИ +1 -->
+  <div id="plusOneNameGroup" style="display:none; margin-top:10px;">
+    <input type="text" id="plusOneName" placeholder="Имя гостя +1">
   </div>
 
 </div>
@@ -1100,6 +1105,8 @@ window.openModal = function(url, desc) {
 
 const attendRadios = document.querySelectorAll('input[name="attend"]');
 const plusOneBlock = document.getElementById('plusOneBlock');
+const plusOneRadios = document.querySelectorAll('input[name="plusOne"]');
+const plusOneNameGroup = document.getElementById('plusOneNameGroup');
 
 function togglePlusOne() {
   const selected = document.querySelector('input[name="attend"]:checked');
@@ -1108,9 +1115,10 @@ function togglePlusOne() {
     plusOneBlock.style.display = 'block';
   } else {
     plusOneBlock.style.display = 'none';
+    plusOneNameGroup.style.display = 'none';
 
-    // сброс +1
-    document.querySelectorAll('input[name="plusOne"]').forEach(r => {
+    // сброс
+    plusOneRadios.forEach(r => {
       r.checked = (r.value === 'Нет');
     });
   }
@@ -1119,6 +1127,18 @@ function togglePlusOne() {
 attendRadios.forEach(radio => {
   radio.addEventListener('change', togglePlusOne);
 });
+
+plusOneRadios.forEach(radio => {
+  radio.addEventListener('change', () => {
+    if (radio.value === 'Да' && radio.checked) {
+      plusOneNameGroup.style.display = 'block';
+    } else {
+      plusOneNameGroup.style.display = 'none';
+    }
+  });
+});
+
+togglePlusOne();
 
 // на случай если страница перезагрузилась с выбором
 togglePlusOne();
