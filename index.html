@@ -668,9 +668,34 @@
     grid-template-columns: repeat(2, 1fr);
   }
 
-      .outfit-grid {
-  grid-template-columns: 1fr;
-  gap: 14px;
+.outfit-grid {
+    position: relative;
+    height: 420px;
+  }
+
+  .outfit-img {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+    touch-action: pan-y;
+  }
+
+  .outfit-img.swiped-left {
+    transform: translateX(-120%) rotate(-15deg);
+    opacity: 0;
+  }
+
+  .outfit-img.swiped-right {
+    transform: translateX(120%) rotate(15deg);
+    opacity: 0;
+  }
+
+  .outfit-img.hidden {
+    display: none;
+  }
+
 }
       .gallery-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -1249,6 +1274,71 @@ document.getElementById('sendToTelegram').addEventListener('click', async functi
           playBtn.textContent = '⏸';
         }
       }, { once: true });
+
+// ===== TINDER SWIPE =====
+
+function enableSwipe(container) {
+  const cards = container.querySelectorAll('.outfit-img');
+
+  let current = 0;
+
+  function showCard(index) {
+    cards.forEach((card, i) => {
+      card.style.zIndex = cards.length - i;
+      card.classList.remove('swiped-left', 'swiped-right', 'hidden');
+
+      if (i < index) {
+        card.classList.add('hidden');
+      }
+    });
+  }
+
+  showCard(current);
+
+  cards.forEach((card, index) => {
+    let startX = 0;
+    let currentX = 0;
+    let isDragging = false;
+
+    card.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].clientX;
+      isDragging = true;
+    });
+
+    card.addEventListener('touchmove', (e) => {
+      if (!isDragging) return;
+
+      currentX = e.touches[0].clientX - startX;
+      card.style.transform = `translateX(${currentX}px) rotate(${currentX * 0.05}deg)`;
+    });
+
+    card.addEventListener('touchend', () => {
+      isDragging = false;
+
+      if (currentX > 100) {
+        card.classList.add('swiped-right');
+        current++;
+      } else if (currentX < -100) {
+        card.classList.add('swiped-left');
+        current++;
+      } else {
+        card.style.transform = '';
+      }
+
+      setTimeout(() => {
+        showCard(current);
+      }, 300);
+    });
+  });
+}
+
+// включаем только на мобилке
+if (window.innerWidth <= 700) {
+  document.querySelectorAll('.outfit-grid').forEach(grid => {
+    enableSwipe(grid);
+  });
+}
+      
     })();
   </script>
 </body>
