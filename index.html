@@ -926,16 +926,22 @@
         <input type="text" id="name" placeholder="Имя и фамилия" required>
         <input type="tel" id="phone" placeholder="Телефон" required>
         
-<div class="radio-group">
-  <label>
-    <input type="radio" name="attend" value="Да" required>
-    <span>Да</span>
+<div style="margin: 15px 0;">
+  <label style="font-weight:600;">
+    Будете ли вы присутствовать?
   </label>
 
-  <label>
-    <input type="radio" name="attend" value="Нет">
-    <span>Нет</span>
-  </label>
+  <div class="radio-group">
+    <label>
+      <input type="radio" name="attend" value="Да" required>
+      <span>Да</span>
+    </label>
+
+    <label>
+      <input type="radio" name="attend" value="Нет">
+      <span>Нет</span>
+    </label>
+  </div>
 </div>
 
 <div class="plusone-row">
@@ -1079,12 +1085,27 @@ window.openModal = function(url, desc) {
       closeModal.addEventListener('click', () => modal.classList.remove('active'));
       window.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('active'); });
 
-      // +1 поле
-      const plusOneCheck = document.getElementById('plusOne');
-      const plusOneGroup = document.getElementById('plusOneNameGroup');
-      plusOneCheck.addEventListener('change', () => {
-        plusOneGroup.style.display = plusOneCheck.checked ? 'block' : 'none';
-      });
+      // +1 логика — только если выбрано "Да"
+const attendRadios = document.querySelectorAll('input[name="attend"]');
+const plusOneBlock = document.getElementById('plusOneBlock');
+const plusOneCheck = document.getElementById('plusOne');
+const plusOneNameGroup = document.getElementById('plusOneNameGroup');
+
+attendRadios.forEach(radio => {
+  radio.addEventListener('change', () => {
+    if (radio.value === 'Да' && radio.checked) {
+      plusOneBlock.style.display = 'block';
+    } else {
+      plusOneBlock.style.display = 'none';
+      plusOneCheck.checked = false;
+      plusOneNameGroup.style.display = 'none';
+    }
+  });
+});
+
+plusOneCheck.addEventListener('change', () => {
+  plusOneNameGroup.style.display = plusOneCheck.checked ? 'block' : 'none';
+});
 
       // Маска телефона
       const phoneInput = document.getElementById('phone');
