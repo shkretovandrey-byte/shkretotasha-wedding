@@ -979,7 +979,7 @@ window.openModal = function(url, desc) {
       phoneInput.addEventListener('input', (e) => {
         let x = e.target.value.replace(/\D/g, '').substring(0,11);
         if (x.length > 0) {
-          let formatted = '+7';
+          let formatted = '7';
           if (x.length > 1) formatted += ' (' + x.substring(1,4);
           if (x.length >= 5) formatted += ') ' + x.substring(4,7);
           if (x.length >= 8) formatted += '-' + x.substring(7,9);
