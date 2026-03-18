@@ -944,15 +944,25 @@
   </div>
 </div>
 
-<div class="plusone-row">
-  <label class="plusone-label">
-    <span>Буду с +1</span>
-    <input type="checkbox" id="plusOne">
+<div id="plusOneBlock" style="display:none; margin:15px 0;">
+  
+  <label style="font-weight:600;">
+    Будете ли вы с +1?
   </label>
+
+  <div class="radio-group">
+    <label>
+      <input type="radio" name="plusOne" value="Да">
+      <span>Да</span>
+    </label>
+
+    <label>
+      <input type="radio" name="plusOne" value="Нет" checked>
+      <span>Нет</span>
+    </label>
+  </div>
+
 </div>
-        <div id="plusOneNameGroup" style="display: none; margin-bottom: 15px;">
-          <input type="text" id="plusOneName" placeholder="Имя гостя +1">
-        </div>
 
         <div style="margin: 15px 0;">
           <label>Предпочтения по алкоголю (можно несколько):</label>
@@ -1086,10 +1096,10 @@ window.openModal = function(url, desc) {
       window.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('active'); });
 
       // +1 логика — только если выбрано "Да"
+// +1 логика (показываем только если выбрано "Да" на присутствии)
+
 const attendRadios = document.querySelectorAll('input[name="attend"]');
 const plusOneBlock = document.getElementById('plusOneBlock');
-const plusOneCheck = document.getElementById('plusOne');
-const plusOneNameGroup = document.getElementById('plusOneNameGroup');
 
 attendRadios.forEach(radio => {
   radio.addEventListener('change', () => {
@@ -1097,14 +1107,13 @@ attendRadios.forEach(radio => {
       plusOneBlock.style.display = 'block';
     } else {
       plusOneBlock.style.display = 'none';
-      plusOneCheck.checked = false;
-      plusOneNameGroup.style.display = 'none';
+
+      // сбрасываем выбор +1
+      document.querySelectorAll('input[name="plusOne"]').forEach(r => {
+        r.checked = r.value === 'Нет';
+      });
     }
   });
-});
-
-plusOneCheck.addEventListener('change', () => {
-  plusOneNameGroup.style.display = plusOneCheck.checked ? 'block' : 'none';
 });
 
       // Маска телефона
@@ -1140,7 +1149,7 @@ document.getElementById('sendToTelegram').addEventListener('click', async functi
     name: document.getElementById('name').value.trim() || 'не указано',
     phone: document.getElementById('phone').value.replace(/\D/g, '') || 'не указано',
     attend: document.querySelector('input[name="attend"]:checked')?.value || 'не выбрано',
-    plusOne: document.getElementById('plusOne').checked ? 'Да' : 'Нет',
+    plusOne: document.querySelector('input[name="plusOne"]:checked')?.value || 'Нет',
     plusOneName: document.getElementById('plusOneName').value.trim() || '',
     alcohol: [...document.querySelectorAll('#rsvpForm .checkbox-group input:checked')]
       .map(cb => cb.value).join(', ') || 'не выбрано',
