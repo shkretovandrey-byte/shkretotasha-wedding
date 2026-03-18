@@ -1005,7 +1005,7 @@ document.getElementById('sendToTelegram').addEventListener('click', async functi
 
   const data = {
     name: document.getElementById('name').value.trim() || 'не указано',
-    phone: document.getElementById('phone').value.trim() || 'не указано',
+    phone: document.getElementById('phone').value.replace(/\D/g, '') || 'не указано',
     attend: document.querySelector('input[name="attend"]:checked')?.value || 'не выбрано',
     plusOne: document.getElementById('plusOne').checked ? 'Да' : 'Нет',
     plusOneName: document.getElementById('plusOneName').value.trim() || '',
