@@ -1095,26 +1095,33 @@ window.openModal = function(url, desc) {
       closeModal.addEventListener('click', () => modal.classList.remove('active'));
       window.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('active'); });
 
-      // +1 логика — только если выбрано "Да"
+
 // +1 логика (показываем только если выбрано "Да" на присутствии)
 
 const attendRadios = document.querySelectorAll('input[name="attend"]');
 const plusOneBlock = document.getElementById('plusOneBlock');
 
-attendRadios.forEach(radio => {
-  radio.addEventListener('change', () => {
-    if (radio.value === 'Да' && radio.checked) {
-      plusOneBlock.style.display = 'block';
-    } else {
-      plusOneBlock.style.display = 'none';
+function togglePlusOne() {
+  const selected = document.querySelector('input[name="attend"]:checked');
 
-      // сбрасываем выбор +1
-      document.querySelectorAll('input[name="plusOne"]').forEach(r => {
-        r.checked = r.value === 'Нет';
-      });
-    }
-  });
+  if (selected && selected.value === 'Да') {
+    plusOneBlock.style.display = 'block';
+  } else {
+    plusOneBlock.style.display = 'none';
+
+    // сброс +1
+    document.querySelectorAll('input[name="plusOne"]').forEach(r => {
+      r.checked = (r.value === 'Нет');
+    });
+  }
+}
+
+attendRadios.forEach(radio => {
+  radio.addEventListener('change', togglePlusOne);
 });
+
+// на случай если страница перезагрузилась с выбором
+togglePlusOne();
 
       // Маска телефона
       const phoneInput = document.getElementById('phone');
