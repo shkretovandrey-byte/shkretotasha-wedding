@@ -1571,16 +1571,15 @@ generateCaptcha();
 
   document.body.appendChild(modal);
 
-setTimeout(() => {
-  modal.remove();
-}, 4000);
+  setTimeout(() => {
+    modal.remove();
 
     // 🔥 усложнение после ошибки
     captchaLevel++;
 
     generateCaptcha();
     document.getElementById('captcha').value = '';
-  }, 1200);
+  }, 5000);
 
   modal.addEventListener('click', () => modal.remove());
 }
