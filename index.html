@@ -1471,9 +1471,14 @@ document.getElementById('sendToTelegram').addEventListener('click', async functi
       method: "POST",
       body: formData,
       headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      }
-      // Убрал redirect: "follow", чтобы видеть реальный ответ
+
+        function doPost(e) {
+  const data = e.parameter;
+
+  return ContentService
+    .createTextOutput("ok")
+    .setMimeType(ContentService.MimeType.TEXT);
+}
     });
 
     console.log('Статус ответа:', response.status);
