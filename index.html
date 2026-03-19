@@ -760,6 +760,63 @@
   }
 }
 
+    /* ===== CAROUSEL ===== */
+.gallery-carousel {
+  position: relative;
+  max-width: 900px;
+  margin: 30px auto;
+  overflow: hidden;
+}
+
+.gallery-track {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.gallery-slide {
+  min-width: 100%;
+  text-align: center;
+}
+
+.gallery-slide img {
+  width: 100%;
+  max-height: 600px;
+  object-fit: cover;
+  border-radius: 18px;
+  border: 4px solid #0039a6;
+  box-shadow: 0 10px 0 #d52b1e;
+}
+
+.gallery-caption {
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+/* кнопки */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: white;
+  border: 3px solid #0039a6;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 22px;
+  z-index: 2;
+}
+
+.carousel-btn.prev { left: 10px; }
+.carousel-btn.next { right: 10px; }
+
+/* мобилка */
+@media (max-width: 700px) {
+  .gallery-slide img {
+    max-height: 420px;
+  }
+}
+
     /* ========== МОБИЛЬНАЯ АДАПТАЦИЯ ========== */
     @media (max-width: 700px) {
       .container {
@@ -1098,21 +1155,21 @@
 
     <div class="outfit-grid">
 
-  <div class="outfit-img" onclick="openModal('https://i.pinimg.com/1200x/4e/0d/48/4e0d486fd5d57d941a62e1311148af8a.jpg','Образ 1')">
-    <img src="https://i.pinimg.com/1200x/4e/0d/48/4e0d486fd5d57d941a62e1311148af8a.jpg">
-  </div>
+<div class="outfit-img">
+  <img src="https://i.pinimg.com/1200x/4e/0d/48/4e0d486fd5d57d941a62e1311148af8a.jpg" alt="Образ 1">
+</div>
 
-  <div class="outfit-img" onclick="openModal('https://i.pinimg.com/1200x/26/d2/3f/26d23fe4e8abf00c9fc1365a7e8222b8.jpg','Образ 2')">
-    <img src="https://i.pinimg.com/1200x/26/d2/3f/26d23fe4e8abf00c9fc1365a7e8222b8.jpg">
-  </div>
+<div class="outfit-img">
+  <img src="https://i.pinimg.com/1200x/26/d2/3f/26d23fe4e8abf00c9fc1365a7e8222b8.jpg" alt="Образ 2">
+</div>
 
-  <div class="outfit-img" onclick="openModal('https://i.pinimg.com/1200x/6c/e0/2a/6ce02a12a25616ea518ac680b9105120.jpg','Образ 3')">
-    <img src="https://i.pinimg.com/1200x/6c/e0/2a/6ce02a12a25616ea518ac680b9105120.jpg">
-  </div>
+<div class="outfit-img">
+  <img src="https://i.pinimg.com/1200x/6c/e0/2a/6ce02a12a25616ea518ac680b9105120.jpg" alt="Образ 3">
+</div>
 
-  <div class="outfit-img" onclick="openModal('https://i.pinimg.com/1200x/61/8d/24/618d246932c6270da6c6bbb97073854c.jpg','Образ 4')">
-    <img src="https://i.pinimg.com/1200x/61/8d/24/618d246932c6270da6c6bbb97073854c.jpg">
-  </div>
+<div class="outfit-img">
+  <img src="https://i.pinimg.com/1200x/61/8d/24/618d246932c6270da6c6bbb97073854c.jpg" alt="Образ 4">
+</div>
 
 </div>
   </div>
@@ -1133,21 +1190,21 @@
 
     <div class="outfit-grid">
 
-  <div class="outfit-img" onclick="openModal('https://i.pinimg.com/1200x/65/be/ea/65beeadb9081050ac5f2bccb048a00ac.jpg','Женский образ 1')">
-    <img src="https://i.pinimg.com/1200x/65/be/ea/65beeadb9081050ac5f2bccb048a00ac.jpg">
-  </div>
+<div class="outfit-img">
+  <img src="https://i.pinimg.com/1200x/65/be/ea/65beeadb9081050ac5f2bccb048a00ac.jpg" alt="Женский образ 1">
+</div>
 
-  <div class="outfit-img" onclick="openModal('https://i.pinimg.com/736x/ab/fc/e2/abfce2864d1d8ea06274683194eabc83.jpg','Женский образ 2')">
-    <img src="https://i.pinimg.com/736x/ab/fc/e2/abfce2864d1d8ea06274683194eabc83.jpg">
-  </div>
+<div class="outfit-img">
+  <img src="https://i.pinimg.com/736x/ab/fc/e2/abfce2864d1d8ea06274683194eabc83.jpg" alt="Женский образ 2">
+</div>
 
-  <div class="outfit-img" onclick="openModal('https://i.pinimg.com/1200x/6c/cd/68/6ccd68b5fcd9bdd461c313cab2359ced.jpg','Женский образ 3')">
-    <img src="https://i.pinimg.com/1200x/6c/cd/68/6ccd68b5fcd9bdd461c313cab2359ced.jpg">
-  </div>
+<div class="outfit-img">
+  <img src="https://i.pinimg.com/1200x/6c/cd/68/6ccd68b5fcd9bdd461c313cab2359ced.jpg" alt="Женский образ 3">
+</div>
 
-  <div class="outfit-img" onclick="openModal('https://i.pinimg.com/1200x/31/c2/9d/31c29d96b7508c59e1e301d3de64fe0a.jpg','Женский образ 4')">
-    <img src="https://i.pinimg.com/1200x/31/c2/9d/31c29d96b7508c59e1e301d3de64fe0a.jpg">
-  </div>
+<div class="outfit-img">
+  <img src="https://i.pinimg.com/1200x/31/c2/9d/31c29d96b7508c59e1e301d3de64fe0a.jpg" alt="Женский образ 4">
+</div>
 
 </div>
   </div>
@@ -1155,26 +1212,30 @@
 
 
   <!-- ГАЛЕРЕЯ ОБРАЗОВ (обновлённые картинки) -->
-  <section class="container">
-    <h2 class="section-title">Галерея образов</h2>
-    <div class="gallery-grid">
-      <!-- Место у Волги -->
-      <div class="gallery-item" onclick="openModal('https://media-cdn.tripadvisor.com/media/photo-s/0e/46/86/c0/caption.jpg', 'Место у Волги')">
-        <div class="gallery-img" style="background-image: url('https://media-cdn.tripadvisor.com/media/photo-s/0e/46/86/c0/caption.jpg');"></div>
-        <div class="gallery-caption"> Место у волги </div>
-      </div>
-      <!-- Стильный жених -->
-      <div class="gallery-item" onclick="openModal('https://avatars.mds.yandex.net/i?id=bfa3f2f830614b2ac6e7f80d47ff919a_l-6976749-images-thumbs&n=13', 'Стильный жених')">
-        <div class="gallery-img" style="background-image: url('https://avatars.mds.yandex.net/i?id=bfa3f2f830614b2ac6e7f80d47ff919a_l-6976749-images-thumbs&n=13');"></div>
-        <div class="gallery-caption">Стильный жених</div>
-      </div>
-      <!-- Вечерний шик -->
-      <div class="gallery-item" onclick="openModal('https://s00.yaplakal.com/pics/pics_original/6/1/1/11318116.jpg', 'Вечерний шик')">
-        <div class="gallery-img" style="background-image: url('https://s00.yaplakal.com/pics/pics_original/6/1/1/11318116.jpg');"></div>
-        <div class="gallery-caption">Вечерний шик</div>
-      </div>
+<div class="gallery-carousel">
+  <button class="carousel-btn prev">‹</button>
+
+  <div class="gallery-track" id="galleryTrack">
+
+    <div class="gallery-slide" onclick="openModal('https://media-cdn.tripadvisor.com/media/photo-s/0e/46/86/c0/caption.jpg','Место у Волги')">
+      <img src="https://media-cdn.tripadvisor.com/media/photo-s/0e/46/86/c0/caption.jpg">
+      <div class="gallery-caption">Место у Волги</div>
     </div>
-  </section>
+
+    <div class="gallery-slide" onclick="openModal('https://avatars.mds.yandex.net/i?id=bfa3f2f830614b2ac6e7f80d47ff919a_l-6976749-images-thumbs&n=13','Стильный жених')">
+      <img src="https://avatars.mds.yandex.net/i?id=bfa3f2f830614b2ac6e7f80d47ff919a_l-6976749-images-thumbs&n=13">
+      <div class="gallery-caption">Стильный жених</div>
+    </div>
+
+    <div class="gallery-slide" onclick="openModal('https://s00.yaplakal.com/pics/pics_original/6/1/1/11318116.jpg','Вечерний шик')">
+      <img src="https://s00.yaplakal.com/pics/pics_original/6/1/1/11318116.jpg">
+      <div class="gallery-caption">Вечерний шик</div>
+    </div>
+
+  </div>
+
+  <button class="carousel-btn next">›</button>
+</div>
 
   <!-- RSVP ФОРМА -->
   <section class="container">
@@ -1714,6 +1775,27 @@ if (window.innerWidth <= 700) {
   });
 }      
     })();
+// ===== GALLERY CAROUSEL =====
+const track = document.getElementById('galleryTrack');
+const slides = document.querySelectorAll('.gallery-slide');
+const prevBtn = document.querySelector('.carousel-btn.prev');
+const nextBtn = document.querySelector('.carousel-btn.next');
+
+let index = 0;
+
+function updateCarousel() {
+  track.style.transform = `translateX(-${index * 100}%)`;
+}
+
+nextBtn.addEventListener('click', () => {
+  index = (index + 1) % slides.length;
+  updateCarousel();
+});
+
+prevBtn.addEventListener('click', () => {
+  index = (index - 1 + slides.length) % slides.length;
+  updateCarousel();
+});    
   </script>
 
    <!-- SUCCESS OVERLAY -->
