@@ -1246,8 +1246,9 @@
 
   <script>
     (function() {
-    const ding = new Audio('https://www.soundjay.com/buttons/sounds/button-3.mp3'); 
-
+const ding = new Audio();
+ding.src = 'https://www.soundjay.com/buttons/sounds/button-3.mp3';
+      
       // ТАЙМЕР
       const targetDate = new Date("2026-07-24T17:00:00").getTime();
       function updateCountdown() {
@@ -1295,7 +1296,8 @@
       const modalImg = document.getElementById('modalImg');
       const modalDesc = document.getElementById('modalDesc');
       const closeModal = document.getElementById('closeModal');
-      const successModal = document.getElementById('successModal');  
+      const successModal = document.getElementById('successModal');
+      const closeSuccess = document.getElementById('closeSuccess');
 
 window.openModal = function(url, desc) {
   modalImg.src = url;
@@ -1463,10 +1465,7 @@ if (phoneDigits.length < 11) {
       "Content-Type": "application/json"
     }
   });
-        // ===== УСПЕШНАЯ ОТПРАВКА =====
-window.addEventListener('click', (e) => {
-  if (e.target === successModal) successModal.classList.remove('active');
-});
+
 
   // ✅ вместо alert
   successModal.classList.add('active');
@@ -1613,8 +1612,6 @@ if (window.innerWidth <= 700) {
 }
 
       
-const closeSuccess = document.getElementById('closeSuccess');
-
 if (closeSuccess) {
   closeSuccess.addEventListener('click', () => {
     successModal.classList.remove('active');
