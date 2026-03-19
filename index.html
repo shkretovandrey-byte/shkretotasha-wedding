@@ -1252,8 +1252,12 @@
     <iframe src="https://vkvideo.ru/video_ext.php?oid=-200267372&id=456239297&hash=d92f876fad263708" width="426" height="240" allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;" frameborder="0" allowfullscreen></iframe>
   </div>
 </div>
-<!--- Captcha modal --->
-const captchaModal = document.getElementById('captchaModal');
+
+<script>
+  const expectationsInput = document.getElementById('expectations');
+  const videoModal = document.getElementById('videoModal');
+  const closeVideoModal = document.getElementById('closeVideoModal');
+  const captchaModal = document.getElementById('captchaModal');
 const closeCaptchaModal = document.getElementById('closeCaptchaModal');
 
 function showCaptchaError() {
@@ -1269,11 +1273,6 @@ window.addEventListener('click', (e) => {
     captchaModal.classList.remove('active');
   }
 });
-        
-<script>
-  const expectationsInput = document.getElementById('expectations');
-  const videoModal = document.getElementById('videoModal');
-  const closeVideoModal = document.getElementById('closeVideoModal');
 
   expectationsInput.addEventListener('click', () => {
     videoModal.classList.add('active');
@@ -1674,7 +1673,6 @@ if (window.innerWidth <= 700) {
       </div>
     </div>
   </div>
-
 <!-- CAPTCHA ERROR MODAL -->
 <div class="modal" id="captchaModal">
   <div class="modal-content" style="text-align:center; max-width:420px;">
@@ -1686,11 +1684,9 @@ if (window.innerWidth <= 700) {
     >
 
     <p style="font-size:18px;">
-      Неправильно 😈<br>
-      попробуй ещё раз
+      Посчитай уже, ёмаё 😈<br>
     </p>
   </div>
 </div>
-  
 </body>
 </html>
