@@ -1415,20 +1415,40 @@ togglePlusOne();
 
       // Капча
 let captchaAnswer = 0;
+let captchaLevel = 3; // 🔥 стартуем сразу с 3 уровня
+
+function rand(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
 function generateCaptcha() {
-  const captchaQuestion = document.getElementById('captchaQuestion');
+  const el = document.getElementById('captchaQuestion');
 
-  const a = Math.floor(Math.random() * 20) + 10; // 10–29
-  const b = Math.floor(Math.random() * 20) + 10;
-  const c = Math.floor(Math.random() * 10) + 1;
+  let text = "";
 
-  // пример типа: (a + b) - c
-  const expression = `(${a} + ${b}) - ${c}`;
+  // 🔥 уровень 3 — базовый старт
+  if (captchaLevel === 3) {
+    const a = rand(2, 12);
+    const b = rand(2, 10);
+    const c = rand(1, 10);
+    const d = rand(1, 9);
 
-  captchaAnswer = (a + b) - c;
+    captchaAnswer = (a * (b + c)) - d;
+    text = `${a} × (${b} + ${c}) - ${d}`;
 
-  captchaQuestion.innerText = `${expression} = ?`;
+  // 😈 уровень 4+ — ещё сложнее
+  } else {
+    const a = rand(3, 15);
+    const b = rand(2, 12);
+    const c = rand(2, 10);
+    const d = rand(1, 9);
+    const e = rand(1, 5);
+
+    captchaAnswer = (a * (b + c)) - d + e;
+    text = `${a} × (${b} + ${c}) - ${d} + ${e}`;
+  }
+
+  el.innerText = `${text} = ?`;
 }
 
 generateCaptcha();
@@ -1477,21 +1497,24 @@ generateCaptcha();
       <img src="https://i.pinimg.com/originals/e1/61/2d/e1612d68a1c4d2363d5daeee8c94d020.jpg"
            style="max-width:100%; border-radius:16px;">
       <p style="color:white; margin-top:15px; font-size:18px;">
-        Неправильная капча 😵<br>Сейчас будет новая
+        Неверно 😈<br>Капча стала сложнее
       </p>
     </div>
   `;
 
-  modal.addEventListener('click', () => modal.remove());
-
   document.body.appendChild(modal);
 
-  // 🔥 через 1.2 сек обновляем капчу
   setTimeout(() => {
     modal.remove();
-    generateCaptcha(); // новая задача
+
+    // 🔥 усложнение после ошибки
+    captchaLevel++;
+
+    generateCaptcha();
     document.getElementById('captcha').value = '';
   }, 1200);
+
+  modal.addEventListener('click', () => modal.remove());
 }
 
       // Отправка в Telegram
