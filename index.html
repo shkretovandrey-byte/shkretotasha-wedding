@@ -1252,7 +1252,24 @@
     <iframe src="https://vkvideo.ru/video_ext.php?oid=-200267372&id=456239297&hash=d92f876fad263708" width="426" height="240" allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;" frameborder="0" allowfullscreen></iframe>
   </div>
 </div>
+<!--- Captcha modal --->
+const captchaModal = document.getElementById('captchaModal');
+const closeCaptchaModal = document.getElementById('closeCaptchaModal');
 
+function showCaptchaError() {
+  captchaModal.classList.add('active');
+}
+
+closeCaptchaModal.addEventListener('click', () => {
+  captchaModal.classList.remove('active');
+});
+
+window.addEventListener('click', (e) => {
+  if (e.target === captchaModal) {
+    captchaModal.classList.remove('active');
+  }
+});
+        
 <script>
   const expectationsInput = document.getElementById('expectations');
   const videoModal = document.getElementById('videoModal');
@@ -1453,10 +1470,10 @@ document.getElementById('sendToTelegram').addEventListener('click', async functi
   const btn = this;
 
   const captchaInput = document.getElementById('captcha').value.trim();
-  if (parseInt(captchaInput) !== captchaAnswer) {
-    alert('Неправильный ответ на капчу');
-    return;
-  }
+if (parseInt(captchaInput) !== captchaAnswer) {
+  showCaptchaError();
+  return;
+}
 
   const name = document.getElementById('name').value.trim();
   const phoneRaw = document.getElementById('phone').value.trim();
@@ -1658,5 +1675,22 @@ if (window.innerWidth <= 700) {
     </div>
   </div>
 
+<!-- CAPTCHA ERROR MODAL -->
+<div class="modal" id="captchaModal">
+  <div class="modal-content" style="text-align:center; max-width:420px;">
+    <span class="close" id="closeCaptchaModal">&times;</span>
+
+    <img 
+      src="https://i.pinimg.com/236x/e1/61/2d/e1612d68a1c4d2363d5daeee8c94d020.jpg"
+      style="width:100%; border-radius:12px; margin-bottom:15px;"
+    >
+
+    <p style="font-size:18px;">
+      Неправильно 😈<br>
+      попробуй ещё раз
+    </p>
+  </div>
+</div>
+  
 </body>
 </html>
