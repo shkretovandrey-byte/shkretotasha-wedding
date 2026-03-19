@@ -1387,52 +1387,27 @@ togglePlusOne();
   document.body.appendChild(modal);
 }
 
-const form = document.getElementById('rsvpForm');
-const sendBtn = document.getElementById('sendToTelegram');
+      // Отправка в Telegram
 
-const successModal = document.getElementById('successModal');
-const closeSuccess = document.getElementById('closeSuccess');
-
-const ding = document.getElementById('ding'); // звук успеха
-let captchaAnswer = window.captchaAnswer || 0; // если у тебя генерится отдельно
-
-// -------------------- MODAL --------------------
-
-if (successModal) {
-  window.addEventListener('click', (e) => {
-    if (e.target === successModal) {
-      successModal.classList.remove('active');
-    }
-  });
-}
-
-if (closeSuccess) {
-  closeSuccess.addEventListener('click', () => {
-    successModal.classList.remove('active');
-  });
-}
-
-// -------------------- SEND FORM --------------------
-
-sendBtn.addEventListener('click', async function () {
+window.addEventListener('click', (e) => {
+  if (e.target === successModal) successModal.classList.remove('active');
+});
+document.getElementById('sendToTelegram').addEventListener('click', async function() {
   const btn = this;
 
-  // CAPTCHA
   const captchaInput = document.getElementById('captcha').value.trim();
   if (parseInt(captchaInput) !== captchaAnswer) {
     alert('Неправильный ответ на капчу');
     return;
   }
 
-  // FIELDS
   const name = document.getElementById('name').value.trim();
   const phoneRaw = document.getElementById('phone').value.trim();
   const phoneDigits = phoneRaw.replace(/\D/g, '');
-
   const attend = document.querySelector('input[name="attend"]:checked');
 
   if (!name || !phoneRaw || !attend) {
-    alert('Заполните обязательные поля');
+    showMemeError();
     return;
   }
 
@@ -1441,11 +1416,9 @@ sendBtn.addEventListener('click', async function () {
     return;
   }
 
-  // LOCK BUTTON
   btn.disabled = true;
   btn.innerText = "Отправка...";
 
-  // DATA
   const data = {
     name,
     phone: phoneDigits,
@@ -1459,7 +1432,6 @@ sendBtn.addEventListener('click', async function () {
     photo: document.getElementById('photoLink').value.trim() || 'нет'
   };
 
-  // SEND
   let sendOk = true;
 
   try {
@@ -1468,59 +1440,53 @@ sendBtn.addEventListener('click', async function () {
       body: JSON.stringify(data)
     });
   } catch (e) {
-    console.error(e);
     sendOk = false;
+    console.error(e);
   }
 
-  // UNLOCK BUTTON
   btn.disabled = false;
   btn.innerText = "Отправить";
 
   if (!sendOk) {
-    alert("Ошибка отправки. Попробуйте ещё раз");
+    alert("Ошибка отправки");
     return;
   }
 
-  // SUCCESS UI
   successModal.classList.add('active');
-
   document.getElementById('rsvpForm').scrollIntoView({
     behavior: 'smooth',
     block: 'center'
   });
 
-  // SOUND
-  if (ding) {
-    ding.play().catch(() => {});
+  ding.play().catch(() => {});
+
+  if (sendOk) {
+    for (let i = 0; i < 80; i++) {
+      const confetti = document.createElement('div');
+      confetti.style.position = 'fixed';
+      confetti.style.width = '8px';
+      confetti.style.height = '8px';
+      confetti.style.background = ['#d52b1e', '#0039a6', '#ffffff'][Math.floor(Math.random()*3)];
+      confetti.style.top = '-10px';
+      confetti.style.left = Math.random() * 100 + 'vw';
+      confetti.style.borderRadius = '50%';
+      confetti.style.zIndex = '9999';
+
+      document.body.appendChild(confetti);
+
+      const fall = confetti.animate([
+        { transform: 'translateY(0)' },
+        { transform: `translateY(${window.innerHeight + 50}px)` }
+      ], {
+        duration: 2000 + Math.random()*1000,
+        easing: 'linear'
+      });
+
+      fall.onfinish = () => confetti.remove();
+    }
   }
 
-  // CONFETTI
-  for (let i = 0; i < 80; i++) {
-    const confetti = document.createElement('div');
-    confetti.style.position = 'fixed';
-    confetti.style.width = '8px';
-    confetti.style.height = '8px';
-    confetti.style.background = ['#d52b1e', '#0039a6', '#ffffff'][Math.floor(Math.random() * 3)];
-    confetti.style.top = '-10px';
-    confetti.style.left = Math.random() * 100 + 'vw';
-    confetti.style.borderRadius = '50%';
-    confetti.style.zIndex = '9999';
-
-    document.body.appendChild(confetti);
-
-    const fall = confetti.animate([
-      { transform: 'translateY(0)' },
-      { transform: `translateY(${window.innerHeight + 50}px)` }
-    ], {
-      duration: 2000 + Math.random() * 1000,
-      easing: 'linear'
-    });
-
-    fall.onfinish = () => confetti.remove();
-  }
-
-  // RESET FORM
-  form.reset();
+  document.getElementById('rsvpForm').reset();
 });
 
 
