@@ -1376,9 +1376,7 @@ let captchaAnswer = num1 + num2;
 
       // Отправка в Telegram
 
-window.addEventListener('click', (e) => {
-  if (e.target === successModal) successModal.classList.remove('active');
-});
+
 document.getElementById('sendToTelegram').addEventListener('click', async function() {
   const captchaInput = document.getElementById('captcha').value.trim();
   if (parseInt(captchaInput) !== captchaAnswer) {
@@ -1473,7 +1471,7 @@ const newNum1 = Math.floor(Math.random()*5)+1;
 const newNum2 = Math.floor(Math.random()*5)+1;
 captchaQuestion.innerText = `${newNum1} + ${newNum2} = ?`;
 captchaAnswer = newNum1 + newNum2;
-
+});
 
 
       // Плеер
@@ -1559,7 +1557,11 @@ if (window.innerWidth <= 700) {
   });
 }
       // ===== УСПЕШНАЯ ОТПРАВКА =====
-const successModal = document.getElementById('successModal');    
+const successModal = document.getElementById('successModal');  
+window.addEventListener('click', (e) => {
+  if (e.target === successModal) successModal.classList.remove('active');
+});
+      
 const closeSuccess = document.getElementById('closeSuccess');
 
 if (closeSuccess) {
