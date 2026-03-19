@@ -1392,7 +1392,7 @@ togglePlusOne();
 window.addEventListener('click', (e) => {
   if (e.target === successModal) successModal.classList.remove('active');
 });
-document.getElementById('sendToTelegram').addEventListener('click', async function() {
+document.getElementById('sendToTelegram').addEventListener('click', async function () {
   const btn = this;
 
   const captchaInput = document.getElementById('captcha').value.trim();
@@ -1432,41 +1432,43 @@ document.getElementById('sendToTelegram').addEventListener('click', async functi
     photo: document.getElementById('photoLink').value.trim() || 'нет'
   };
 
-  let sendOk = true;
+  let ok = false;
 
   try {
     await fetch("https://script.google.com/macros/s/AKfycbyMVmJ9UhzL39YCXptUkhTwoPUlPTA4-5QOf0SCxyV3d8bOgGGJ42PMt55c7o8NTHTZ/exec", {
       method: "POST",
       body: JSON.stringify(data)
     });
+
+    ok = true;
   } catch (e) {
-    sendOk = false;
-    console.error(e);
+    console.error("Ошибка отправки:", e);
   }
 
   btn.disabled = false;
   btn.innerText = "Отправить";
 
-  if (!sendOk) {
-    alert("Ошибка отправки");
+  if (!ok) {
+    alert("Ошибка отправки. Попробуйте ещё раз");
     return;
   }
 
+  // =========================
+  // 🎉 УСПЕХ (ВАЖНО: порядок)
+  // =========================
+
   successModal.classList.add('active');
-  document.getElementById('rsvpForm').scrollIntoView({
-    behavior: 'smooth',
-    block: 'center'
-  });
 
   ding.play().catch(() => {});
 
-  if (sendOk) {
+  // 🎊 КОНФЕТТИ (гарантированно после DOM обновления)
+  setTimeout(() => {
     for (let i = 0; i < 80; i++) {
       const confetti = document.createElement('div');
       confetti.style.position = 'fixed';
       confetti.style.width = '8px';
       confetti.style.height = '8px';
-      confetti.style.background = ['#d52b1e', '#0039a6', '#ffffff'][Math.floor(Math.random()*3)];
+      confetti.style.background = ['#d52b1e', '#0039a6', '#ffffff'][Math.floor(Math.random() * 3)];
       confetti.style.top = '-10px';
       confetti.style.left = Math.random() * 100 + 'vw';
       confetti.style.borderRadius = '50%';
@@ -1478,15 +1480,25 @@ document.getElementById('sendToTelegram').addEventListener('click', async functi
         { transform: 'translateY(0)' },
         { transform: `translateY(${window.innerHeight + 50}px)` }
       ], {
-        duration: 2000 + Math.random()*1000,
+        duration: 2000 + Math.random() * 1000,
         easing: 'linear'
       });
 
       fall.onfinish = () => confetti.remove();
     }
-  }
+  }, 150);
 
-  document.getElementById('rsvpForm').reset();
+  // 📍 скролл
+  document.getElementById('rsvpForm').scrollIntoView({
+    behavior: 'smooth',
+    block: 'center'
+  });
+
+  // 🧼 очистка формы (ПОСЛЕ эффектов)
+  setTimeout(() => {
+    document.getElementById('rsvpForm').reset();
+    document.getElementById('captcha').value = '';
+  }, 300);
 });
 
 
