@@ -1323,8 +1323,12 @@
 const captchaModal = document.getElementById('captchaModal');
 const closeCaptchaModal = document.getElementById('closeCaptchaModal');
 
-closeCaptchaModal?.addEventListener('click', () => {
-  captchaModal?.classList.remove('active');
+function showCaptchaError() {
+  captchaModal.classList.add('active');
+}
+
+closeCaptchaModal.addEventListener('click', () => {
+  captchaModal.classList.remove('active');
 });
 
 window.addEventListener('click', (e) => {
