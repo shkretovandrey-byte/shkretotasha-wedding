@@ -1381,15 +1381,6 @@ togglePlusOne();
 }
 
       // Отправка в Telegram
-// ===== УСПЕШНАЯ ОТПРАВКА =====
-const successModal = document.getElementById('successModal');
-const closeSuccess = document.getElementById('closeSuccess');
-
-if (closeSuccess) {
-  closeSuccess.addEventListener('click', () => {
-    successModal.classList.remove('active');
-  });
-}
 
 window.addEventListener('click', (e) => {
   if (e.target === successModal) successModal.classList.remove('active');
@@ -1557,7 +1548,21 @@ if (window.innerWidth <= 700) {
     enableSwipe(grid);
   });
 }
-const ding = new Audio('https://www.soundjay.com/buttons/sounds/button-3.mp3');      
+      // ===== УСПЕШНАЯ ОТПРАВКА =====
+const successModal = document.getElementById('successModal');
+const closeSuccess = document.getElementById('closeSuccess');
+
+if (closeSuccess) {
+  closeSuccess.addEventListener('click', () => {
+    successModal.classList.remove('active');
+  });
+}
+
+window.addEventListener('click', (e) => {
+  if (e.target === successModal) successModal.classList.remove('active');
+});
+      ding.play();
+ const ding = new Audio('https://www.soundjay.com/buttons/sounds/button-3.mp3');  
     })();
   </script>
   <div class="modal" id="successModal">
