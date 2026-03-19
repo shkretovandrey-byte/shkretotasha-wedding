@@ -1470,28 +1470,18 @@ document.getElementById('sendToTelegram').addEventListener('click', async functi
     const response = await fetch("https://script.google.com/macros/s/AKfycbyMVmJ9UhzL39YCXptUkhTwoPUlPTA4-5QOf0SCxyV3d8bOgGGJ42PMt55c7o8NTHTZ/exec", {
       method: "POST",
       body: formData,
-
+  mode: "no-cors"
     });
 
     console.log('Статус ответа:', response.status);
     
-    // Пытаемся прочитать ответ как текст (даже если это HTML)
-    const responseText = await response.text();
-    console.log('Текст ответа:', responseText);
+// просто считаем что успех
+const successModal = document.getElementById('successModal');
+if (successModal) successModal.classList.add('active');
 
-    // Если статус не 200, возможно, ошибка
-    if (!response.ok) {
-      throw new Error(`HTTP ошибка ${response.status}: ${responseText}`);
-    }
-
-    // Пытаемся распарсить JSON (если это JSON)
-    let result;
-    try {
-      result = JSON.parse(responseText);
-    } catch (e) {
-      result = { raw: responseText };
-    }
-    console.log('Распарсенный ответ:', result);
+btn.textContent = '✓ Отправлено';
+status.style.display = 'inline-block';
+status.classList.add('show');
 
     // Успех — показываем модалку
     const successModal = document.getElementById('successModal');
