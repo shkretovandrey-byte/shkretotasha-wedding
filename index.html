@@ -1320,6 +1320,7 @@ document.addEventListener('DOMContentLoaded', () => {
       
     // 👉 капча
 const captchaModal = document.getElementById('captchaModal');
+const captchaModal = document.getElementById('captchaModal');
 const closeCaptchaModal = document.getElementById('closeCaptchaModal');
 
 function showCaptchaError() {
@@ -1338,7 +1339,6 @@ window.addEventListener('click', (e) => {
     captchaModal.classList.remove('active');
   }
 });
-
 });
       
       // ТАЙМЕР
@@ -1527,7 +1527,8 @@ if (parseInt(captchaInput) !== captchaAnswer) {
     wishes: document.getElementById('wishes').value.trim() || 'нет',
     song: document.getElementById('song').value.trim() || 'не указана',
     photo: document.getElementById('photoLink').value.trim() || 'нет'
-  };
+   });
+}
 
   let ok = false;
 
@@ -1566,8 +1567,6 @@ if (overlay) {
   overlay.addEventListener('click', () => {
     overlay.classList.remove('active');
   });
-}
-});
 }
 
 // конфетти (чуть легче и плавнее)
