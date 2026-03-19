@@ -1415,9 +1415,6 @@ let captchaAnswer = num1 + num2;
   document.body.appendChild(modal);
 }
 
-      // Отправка в Telegram
-
-
 // Отправка в Telegram
 document.getElementById('sendToTelegram').addEventListener('click', async function() {
   const btn = this;
@@ -1488,7 +1485,28 @@ document.getElementById('sendToTelegram').addEventListener('click', async functi
     const ding = new Audio('https://www.soundjay.com/buttons/sounds/button-3.mp3');
     ding.play().catch(() => {});
 
-    // Конфетти (можно оставить как есть)
+    // Конфетти (оставляем как есть)
+    for (let i = 0; i < 120; i++) {
+      const confetti = document.createElement('div');
+      confetti.style.position = 'fixed';
+      confetti.style.width = '10px';
+      confetti.style.height = '10px';
+      confetti.style.background = ['#d52b1e', '#0039a6', '#ffffff'][Math.floor(Math.random()*3)];
+      confetti.style.top = '-20px';
+      confetti.style.left = Math.random() * 100 + 'vw';
+      confetti.style.opacity = '1';
+      confetti.style.zIndex = '9999';
+      confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+      document.body.appendChild(confetti);
+      const fall = confetti.animate([
+        { transform: 'translateY(0) rotate(0deg)' },
+        { transform: `translateY(${window.innerHeight + 100}px) rotate(${Math.random()*360}deg)` }
+      ], {
+        duration: 2500 + Math.random()*1500,
+        easing: 'ease-out'
+      });
+      fall.onfinish = () => confetti.remove();
+    }
 
     // Сброс формы через 3 секунды
     setTimeout(() => {
@@ -1507,7 +1525,7 @@ document.getElementById('sendToTelegram').addEventListener('click', async functi
       btn.textContent = 'Отправить';
       status.classList.remove('show');
       status.style.display = 'none';
-    }, 3000); // увеличил до 3 секунд
+    }, 3000);
 
   } catch (error) {
     console.error(error);
@@ -1515,102 +1533,35 @@ document.getElementById('sendToTelegram').addEventListener('click', async functi
     resetButton();
   }
 });
-  });
 
-
-  // ✅ вместо alert
-if (successModal) {
-  successModal.classList.add('active');
-}
-  btn.textContent = '✓ Отправлено';
-status.style.display = 'inline-block';
-status.classList.add('show');
-  // 🔔 ДИНЬ
-ding.currentTime = 0;
-ding.play().catch(() => {});
-  // 🎊 конфетти
-for (let i = 0; i < 120; i++) {
-  const confetti = document.createElement('div');
-
-  confetti.style.position = 'fixed';
-  confetti.style.width = '10px';
-  confetti.style.height = '10px';
-  confetti.style.background = ['#d52b1e', '#0039a6', '#ffffff'][Math.floor(Math.random()*3)];
-  confetti.style.top = '-20px';
-  confetti.style.left = Math.random() * 100 + 'vw';
-  confetti.style.opacity = '1';
-  confetti.style.zIndex = '9999';
-  confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
-
-  document.body.appendChild(confetti);
-
-  const fall = confetti.animate([
-    { transform: 'translateY(0) rotate(0deg)' },
-    { transform: `translateY(${window.innerHeight + 100}px) rotate(${Math.random()*360}deg)` }
-  ], {
-    duration: 2500 + Math.random()*1500,
-    easing: 'ease-out'
-  });
-
-  fall.onfinish = () => confetti.remove();
-}
-// ⏳ очистка с задержкой
-setTimeout(() => {
-  const form = document.getElementById('rsvpForm');
-  form.reset();
-
-  plusOneBlock.style.display = 'none';
-  plusOneNameGroup.style.display = 'none';
-
-  plusOneRadios.forEach(r => {
-    r.checked = (r.value === 'Нет');
-  });
-
-  // новая капча
-const newNum1 = Math.floor(Math.random()*5)+1;
-const newNum2 = Math.floor(Math.random()*5)+1;
-captchaQuestion.innerText = `${newNum1} + ${newNum2} = ?`;
-captchaAnswer = newNum1 + newNum2;
-  
-  btn.disabled = false;
-btn.textContent = 'Отправить';
-
-status.classList.remove('show');
-status.style.display = 'none';
-}, 800); // 👈 0.8 сек — идеально
-
-
-      // Плеер
-      const audio = document.getElementById('music');
-      const playBtn = document.getElementById('playBtn');
-      playBtn.addEventListener('click', () => {
-        if (audio.paused) {
-          audio.play();
-          playBtn.textContent = '⏸';
-        } else {
-          audio.pause();
-          playBtn.textContent = '▶';
-        }
-      });
-      document.body.addEventListener('click', () => {
-        if (audio.paused) {
-          audio.play().catch(() => {});
-          playBtn.textContent = '⏸';
-        }
-      }, { once: true });
+// Плеер
+const audio = document.getElementById('music');
+const playBtn = document.getElementById('playBtn');
+playBtn.addEventListener('click', () => {
+  if (audio.paused) {
+    audio.play();
+    playBtn.textContent = '⏸';
+  } else {
+    audio.pause();
+    playBtn.textContent = '▶';
+  }
+});
+document.body.addEventListener('click', () => {
+  if (audio.paused) {
+    audio.play().catch(() => {});
+    playBtn.textContent = '⏸';
+  }
+}, { once: true });
 
 // ===== TINDER SWIPE =====
-
 function enableSwipe(container) {
   const cards = container.querySelectorAll('.outfit-img');
-
   let current = 0;
 
   function showCard(index) {
     cards.forEach((card, i) => {
       card.style.zIndex = cards.length - i;
       card.classList.remove('swiped-left', 'swiped-right', 'hidden');
-
       if (i < index) {
         card.classList.add('hidden');
       }
@@ -1631,14 +1582,12 @@ function enableSwipe(container) {
 
     card.addEventListener('touchmove', (e) => {
       if (!isDragging) return;
-
       currentX = e.touches[0].clientX - startX;
       card.style.transform = `translateX(${currentX}px) rotate(${currentX * 0.05}deg)`;
     });
 
     card.addEventListener('touchend', () => {
       isDragging = false;
-
       if (currentX > 100) {
         card.classList.add('swiped-right');
         current++;
@@ -1648,7 +1597,6 @@ function enableSwipe(container) {
       } else {
         card.style.transform = '';
       }
-
       setTimeout(() => {
         showCard(current);
       }, 300);
@@ -1662,18 +1610,18 @@ if (window.innerWidth <= 700) {
     enableSwipe(grid);
   });
 }
-      
-    })();
 
-        <div class="modal" id="successModal">
-  <div class="modal-content" style="text-align:center;">
-    <h2 style="margin-bottom:10px;">🎉 Готово!</h2>
-    <p style="margin-bottom:20px;">Ваш ответ сохранён 💍</p>
-    <button class="btn" id="closeSuccess">Закрыть</button>
+})(); 
+</script>
+
+  <!-- МОДАЛЬНОЕ ОКНО УСПЕХА (ПЕРЕД ЗАКРЫТИЕМ BODY) -->
+  <div class="modal" id="successModal">
+    <div class="modal-content" style="text-align:center;">
+      <h2 style="margin-bottom:10px;">🎉 Готово!</h2>
+      <p style="margin-bottom:20px;">Ваш ответ сохранён 💍</p>
+      <button class="btn" id="closeSuccess">Закрыть</button>
+    </div>
   </div>
-</div>
-  </script>
-
 
 </body>
 </html>
