@@ -1543,11 +1543,14 @@ document.getElementById('sendToTelegram').addEventListener('click', async functi
 if (parseInt(captchaInput) !== captchaAnswer) {
   captchaErrors++;
 
-  if (captchaErrors >= 3) {
-    captchaLevel = 99; // 😈 режим босса
-  }
+  console.log("Ошибки капчи:", captchaErrors);
 
   showCaptchaMeme();
+
+  generateCaptcha();
+
+  document.getElementById('captcha').value = '';
+
   return;
 }
 
