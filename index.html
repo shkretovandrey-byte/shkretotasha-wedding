@@ -478,6 +478,9 @@
   display: inline-block;
   line-height: 1.2;
 }
+    #successModal .modal-content {
+  max-width: 400px;
+}
  
     /* Плеер */
     .music-player {
@@ -1378,6 +1381,17 @@ togglePlusOne();
 }
 
       // Отправка в Telegram
+const successModal = document.getElementById('successModal');
+const closeSuccess = document.getElementById('closeSuccess');
+
+closeSuccess.addEventListener('click', () => {
+  successModal.classList.remove('active');
+});
+
+window.addEventListener('click', (e) => {
+  if (e.target === successModal) successModal.classList.remove('active');
+});
+
 document.getElementById('sendToTelegram').addEventListener('click', async function() {
   const captchaInput = document.getElementById('captcha').value.trim();
   if (parseInt(captchaInput) !== captchaAnswer) {
@@ -1385,17 +1399,26 @@ document.getElementById('sendToTelegram').addEventListener('click', async functi
     return;
   }
 
-  const data = {
-    const name = document.getElementById('name').value.trim();
-const phone = document.getElementById('phone').value.trim();
-const attend = document.querySelector('input[name="attend"]:checked');
+  const name = document.getElementById('name').value.trim();
+  const phoneRaw = document.getElementById('phone').value.trim();
+  const phoneDigits = phoneRaw.replace(/\D/g, '');
+  const attend = document.querySelector('input[name="attend"]:checked');
 
-if (!name || !phone || !attend) {
-  showMemeError();
-  return;
-}
-    phone: document.getElementById('phone').value.replace(/\D/g, '') || 'не указано',
-    attend: document.querySelector('input[name="attend"]:checked')?.value || 'не выбрано',
+  // 🔴 ПРОВЕРКИ
+  if (!name || !phoneRaw || !attend) {
+    showMemeError();
+    return;
+  }
+
+  if (phoneDigits.length < 11) {
+    alert('Введите корректный номер телефона');
+    return;
+  }
+
+  const data = {
+    name: name,
+    phone: phoneDigits,
+    attend: attend.value,
     plusOne: document.querySelector('input[name="plusOne"]:checked')?.value || 'Нет',
     plusOneName: document.getElementById('plusOneName').value.trim() || '',
     alcohol: [...document.querySelectorAll('#rsvpForm .checkbox-group input:checked')]
@@ -1414,7 +1437,11 @@ if (!name || !phone || !attend) {
     }
   });
 
-  alert('Спасибо! Ответ сохранён 💍');
+  // ✅ вместо alert
+  successModal.classList.add('active');
+
+  // опционально — очистка формы
+  document.getElementById('rsvpForm').reset();
 });
 
 
@@ -1504,5 +1531,11 @@ if (window.innerWidth <= 700) {
       
     })();
   </script>
-</body>
+  <div class="modal" id="successModal">
+  <div class="modal-content" style="text-align:center;">
+    <h2 style="margin-bottom:10px;">🎉 Готово!</h2>
+    <p style="margin-bottom:20px;">Ваш ответ сохранён 💍</p>
+    <button class="btn" id="closeSuccess">Закрыть</button>
+  </div>
+</div>
 </html>
