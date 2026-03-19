@@ -574,13 +574,6 @@
   transform: translateY(-5px) scale(1.02);
   box-shadow: 0 15px 40px rgba(0,0,0,0.2);
 }
-.color-dot {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  display: inline-block;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-}
 
 .white-dot {
   background: #ffffff;
@@ -883,6 +876,21 @@
     }
     .map-box iframe {
   height: 320px;
+}
+    #sentStatus.show {
+  display:inline-block;
+  animation: sentFade 0.6s ease forwards;
+}
+
+@keyframes sentFade {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
   </style>
 </head>
@@ -1207,6 +1215,16 @@
         </div>
 
         <button type="button" class="btn" id="sendToTelegram">Отправить</button>
+        <span id="sentStatus" style="
+  display:none;
+  margin-left:10px;
+  font-weight:600;
+  color:#2ecc71;
+  opacity:0;
+  transform:translateY(5px);
+">
+  ✓ Отправлено
+</span>
       </form>
     </div>
   </section>
@@ -1228,6 +1246,8 @@
 
   <script>
     (function() {
+    const ding = new Audio('https://www.soundjay.com/buttons/sounds/button-3.mp3'); 
+
       // ТАЙМЕР
       const targetDate = new Date("2026-07-24T17:00:00").getTime();
       function updateCountdown() {
@@ -1275,6 +1295,7 @@
       const modalImg = document.getElementById('modalImg');
       const modalDesc = document.getElementById('modalDesc');
       const closeModal = document.getElementById('closeModal');
+      const successModal = document.getElementById('successModal');  
 
 window.openModal = function(url, desc) {
   modalImg.src = url;
@@ -1345,7 +1366,16 @@ togglePlusOne();
       captchaQuestion.innerText = `${num1} + ${num2} = ?`;
 let captchaAnswer = num1 + num2;
 
-      
+function resetButton() {
+  const btn = document.getElementById('sendToTelegram');
+  const status = document.getElementById('sentStatus');
+
+  btn.disabled = false;
+  btn.textContent = 'Отправить';
+
+  status.classList.remove('show');
+  status.style.display = 'none';
+}      
       //Мемная ошибка
 
       function showMemeError() {
@@ -1376,10 +1406,18 @@ let captchaAnswer = num1 + num2;
 
       // Отправка в Telegram
 
-window.addEventListener('click', (e) => {
-  if (e.target === successModal) successModal.classList.remove('active');
-});
+
 document.getElementById('sendToTelegram').addEventListener('click', async function() {
+
+  const btn = document.getElementById('sendToTelegram');
+
+btn.disabled = true;
+btn.textContent = 'Отправляем...';
+
+const status = document.getElementById('sentStatus');
+status.classList.remove('show');
+status.style.display = 'none';
+  
   const captchaInput = document.getElementById('captcha').value.trim();
   if (parseInt(captchaInput) !== captchaAnswer) {
     alert('Неправильный ответ на капчу');
@@ -1392,15 +1430,17 @@ document.getElementById('sendToTelegram').addEventListener('click', async functi
   const attend = document.querySelector('input[name="attend"]:checked');
 
   // 🔴 ПРОВЕРКИ
-  if (!name || !phoneRaw || !attend) {
-    showMemeError();
-    return;
-  }
+if (!name || !phoneRaw || !attend) {
+  showMemeError();
+  resetButton();
+  return;
+}
 
-  if (phoneDigits.length < 11) {
-    alert('Введите корректный номер телефона');
-    return;
-  }
+if (phoneDigits.length < 11) {
+  alert('Введите корректный номер телефона');
+  resetButton();
+  return;
+}
 
   const data = {
     name: name,
@@ -1423,9 +1463,17 @@ document.getElementById('sendToTelegram').addEventListener('click', async functi
       "Content-Type": "application/json"
     }
   });
+        // ===== УСПЕШНАЯ ОТПРАВКА =====
+window.addEventListener('click', (e) => {
+  if (e.target === successModal) successModal.classList.remove('active');
+});
 
   // ✅ вместо alert
   successModal.classList.add('active');
+
+  btn.textContent = '✓ Отправлено';
+status.style.display = 'inline-block';
+status.classList.add('show');
   // 🔔 ДИНЬ
 ding.currentTime = 0;
 ding.play().catch(() => {});
@@ -1455,25 +1503,30 @@ for (let i = 0; i < 120; i++) {
 
   fall.onfinish = () => confetti.remove();
 }
-  // очистка формы
-const form = document.getElementById('rsvpForm');
-form.reset();
+// ⏳ очистка с задержкой
+setTimeout(() => {
+  const form = document.getElementById('rsvpForm');
+  form.reset();
 
-// скрываем +1 блоки обратно
-plusOneBlock.style.display = 'none';
-plusOneNameGroup.style.display = 'none';
+  plusOneBlock.style.display = 'none';
+  plusOneNameGroup.style.display = 'none';
 
-// сбрасываем выбор +1
-plusOneRadios.forEach(r => {
-  r.checked = (r.value === 'Нет');
-});
+  plusOneRadios.forEach(r => {
+    r.checked = (r.value === 'Нет');
+  });
 
-// сброс капчи (новая)
-const newNum1 = Math.floor(Math.random()*5)+1;
-const newNum2 = Math.floor(Math.random()*5)+1;
-captchaQuestion.innerText = `${newNum1} + ${newNum2} = ?`;
-captchaAnswer = newNum1 + newNum2;
+  // новая капча
+  const newNum1 = Math.floor(Math.random()*5)+1;
+  const newNum2 = Math.floor(Math.random()*5)+1;
+  captchaQuestion.innerText = `${newNum1} + ${newNum2} = ?`;
+  captchaAnswer = newNum1 + newNum2;
 
+  btn.disabled = false;
+btn.textContent = 'Отправить';
+
+status.classList.remove('show');
+status.style.display = 'none';
+}, 800); // 👈 0.8 сек — идеально
 
 
       // Плеер
@@ -1558,8 +1611,8 @@ if (window.innerWidth <= 700) {
     enableSwipe(grid);
   });
 }
-      // ===== УСПЕШНАЯ ОТПРАВКА =====
-const successModal = document.getElementById('successModal');    
+
+      
 const closeSuccess = document.getElementById('closeSuccess');
 
 if (closeSuccess) {
@@ -1568,8 +1621,6 @@ if (closeSuccess) {
   });
 }
 
-
- const ding = new Audio('https://www.soundjay.com/buttons/sounds/button-3.mp3'); 
       
     })();
   </script>
@@ -1580,4 +1631,6 @@ if (closeSuccess) {
     <button class="btn" id="closeSuccess">Закрыть</button>
   </div>
 </div>
+
+</body>
 </html>
