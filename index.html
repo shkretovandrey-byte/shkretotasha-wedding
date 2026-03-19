@@ -689,6 +689,15 @@
       border-bottom: 3px solid #d52b1e;
       word-break: break-word;
     }
+    .modal {
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.modal.active {
+  display: flex;
+  opacity: 1;
+}
 
     /* ========== МОБИЛЬНАЯ АДАПТАЦИЯ ========== */
     @media (max-width: 700px) {
@@ -1395,6 +1404,10 @@ document.getElementById('sendToTelegram').addEventListener('click', async functi
   const phoneDigits = phoneRaw.replace(/\D/g, '');
   const attend = document.querySelector('input[name="attend"]:checked');
 
+  const btn = document.getElementById('sendToTelegram');
+btn.disabled = true;
+btn.innerText = "Отправка...";
+
   // 🔴 ПРОВЕРКИ
   if (!name || !phoneRaw || !attend) {
     showMemeError();
@@ -1419,19 +1432,37 @@ document.getElementById('sendToTelegram').addEventListener('click', async functi
     photo: document.getElementById('photoLink').value.trim() || 'нет'
   };
 
+let sendOk = true;
+
+try {
   await fetch("https://script.google.com/macros/s/AKfycbyMVmJ9UhzL39YCXptUkhTwoPUlPTA4-5QOf0SCxyV3d8bOgGGJ42PMt55c7o8NTHTZ/exec", {
     method: "POST",
-    mode: "no-cors",
-    body: JSON.stringify(data),
-    headers: {
-      "Content-Type": "application/json"
-    }
+    body: JSON.stringify(data)
+  });
+} catch (e) {
+  sendOk = false;
+  console.error("Ошибка отправки:", e);
+}
   });
 
+if (!sendOk) {
+  alert("Ошибка отправки. Попробуйте ещё раз");
+  btn.disabled = false;
+  btn.innerText = "Отправить";
+  return;
+}
+      
   // ✅ вместо alert
   successModal.classList.add('active');
+
+      document.getElementById('rsvpForm').scrollIntoView({
+  behavior: 'smooth',
+  block: 'center'
+});
+  ding.play().catch(() => {});
   // 🎊 конфетти
-for (let i = 0; i < 80; i++) {
+
+      if (sendOk) {for (let i = 0; i < 80; i++) {
   const confetti = document.createElement('div');
 
   confetti.style.position = 'fixed';
@@ -1455,7 +1486,7 @@ for (let i = 0; i < 80; i++) {
   });
 
   fall.onfinish = () => confetti.remove();
-}
+}}
 
   // опционально — очистка формы
   document.getElementById('rsvpForm').reset();
@@ -1545,23 +1576,21 @@ if (window.innerWidth <= 700) {
     enableSwipe(grid);
   });
 }
-      // ===== УСПЕШНАЯ ОТПРАВКА =====
-const successModal = document.getElementById('successModal');
-window.addEventListener('click', (e) => {
-  if (e.target === successModal) successModal.classList.remove('active');
-});      
+      
+
+ const ding = new Audio('https://www.soundjay.com/buttons/sounds/button-3.mp3'); 
+      
+    })();
+    // ===== УСПЕШНАЯ ОТПРАВКА =====
+const successModal = document.getElementById('successModal');    
 const closeSuccess = document.getElementById('closeSuccess');
 
 if (closeSuccess) {
   closeSuccess.addEventListener('click', () => {
     successModal.classList.remove('active');
+    document.getElementById('captcha').value = '';
   });
 }
-
-
- const ding = new Audio('https://www.soundjay.com/buttons/sounds/button-3.mp3'); 
-      
-    })();
   </script>
   <div class="modal" id="successModal">
   <div class="modal-content" style="text-align:center;">
