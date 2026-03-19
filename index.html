@@ -1324,17 +1324,22 @@ const captchaModal = document.getElementById('captchaModal');
 const closeCaptchaModal = document.getElementById('closeCaptchaModal');
 
 function showCaptchaError() {
+  if (!captchaModal) return;
   captchaModal.classList.add('active');
 }
 
-closeCaptchaModal.addEventListener('click', () => {
-  captchaModal.classList.remove('active');
-});
+if (closeCaptchaModal && captchaModal) {
+  closeCaptchaModal.addEventListener('click', () => {
+    captchaModal.classList.remove('active');
+  });
+}
 
 window.addEventListener('click', (e) => {
   if (e.target === captchaModal) {
     captchaModal.classList.remove('active');
   }
+});
+
 });
       
       // ТАЙМЕР
@@ -1483,8 +1488,10 @@ togglePlusOne();
 }
 
       // Отправка в Telegram
-document.getElementById('sendToTelegram').addEventListener('click', async function () {
-  const btn = this;
+const sendBtn = document.getElementById('sendToTelegram');
+
+if (sendBtn) {
+  sendBtn.addEventListener('click', async function () {  const btn = this;
 
   const captchaInput = document.getElementById('captcha').value.trim();
 if (parseInt(captchaInput) !== captchaAnswer) {
@@ -1553,7 +1560,16 @@ dingSound.play().catch(() => {});
 
 // overlay
 const overlay = document.getElementById('successOverlay');
-overlay.classList.add('active');
+
+if (overlay) {
+  overlay.classList.add('active');
+
+  overlay.addEventListener('click', () => {
+    overlay.classList.remove('active');
+  });
+}
+});
+}
 
 // конфетти (чуть легче и плавнее)
 for (let i = 0; i < 60; i++) {
