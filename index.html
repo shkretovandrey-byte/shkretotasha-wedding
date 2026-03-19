@@ -1286,8 +1286,6 @@ window.openModal = function(url, desc) {
 };
 
       closeModal.addEventListener('click', () => modal.classList.remove('active'));
-      window.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('active'); });
-
 
 // +1 логика (показываем только если выбрано "Да" на присутствии)
 
@@ -1385,7 +1383,6 @@ togglePlusOne();
 window.addEventListener('click', (e) => {
   if (e.target === successModal) successModal.classList.remove('active');
 });
-ding.play();
 document.getElementById('sendToTelegram').addEventListener('click', async function() {
   const captchaInput = document.getElementById('captcha').value.trim();
   if (parseInt(captchaInput) !== captchaAnswer) {
@@ -1550,6 +1547,9 @@ if (window.innerWidth <= 700) {
 }
       // ===== УСПЕШНАЯ ОТПРАВКА =====
 const successModal = document.getElementById('successModal');
+window.addEventListener('click', (e) => {
+  if (e.target === successModal) successModal.classList.remove('active');
+});      
 const closeSuccess = document.getElementById('closeSuccess');
 
 if (closeSuccess) {
@@ -1558,11 +1558,9 @@ if (closeSuccess) {
   });
 }
 
-window.addEventListener('click', (e) => {
-  if (e.target === successModal) successModal.classList.remove('active');
-});
-      ding.play();
- const ding = new Audio('https://www.soundjay.com/buttons/sounds/button-3.mp3');  
+
+ const ding = new Audio('https://www.soundjay.com/buttons/sounds/button-3.mp3'); 
+      
     })();
   </script>
   <div class="modal" id="successModal">
