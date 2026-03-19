@@ -896,6 +896,66 @@
     .map-box iframe {
   height: 320px;
 }
+    /* ===== SUCCESS FLOW ===== */
+
+#successOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+#successOverlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.success-box {
+  text-align: center;
+  animation: successPop 0.6s ease;
+}
+
+.success-icon {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #0039a6, #d52b1e);
+  color: white;
+  font-size: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 25px;
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
+
+.success-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  line-height: 1.4;
+  color: #111;
+}
+
+/* анимация появления */
+@keyframes successPop {
+  from {
+    opacity: 0;
+    transform: scale(0.8) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
   </style>
 </head>
 <body>
@@ -1449,18 +1509,23 @@ document.getElementById('sendToTelegram').addEventListener('click', async functi
     return;
   }
 
-// ===== SUCCESS =====
+// ===== SUCCESS FLOW =====
 
-// звук
-const dingSound = new Audio('https://www.soundjay.com/buttons/sounds/button-3.mp3');
+// звук (мягче, чем был)
+const dingSound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-achievement-bell-600.mp3');
+dingSound.volume = 0.4;
 dingSound.play().catch(() => {});
 
-// конфетти
-for (let i = 0; i < 80; i++) {
+// overlay
+const overlay = document.getElementById('successOverlay');
+overlay.classList.add('active');
+
+// конфетти (чуть легче и плавнее)
+for (let i = 0; i < 60; i++) {
   const confetti = document.createElement('div');
   confetti.style.position = 'fixed';
-  confetti.style.width = '8px';
-  confetti.style.height = '8px';
+  confetti.style.width = '6px';
+  confetti.style.height = '6px';
   confetti.style.background = ['#d52b1e', '#0039a6', '#ffffff'][Math.floor(Math.random() * 3)];
   confetti.style.top = '-10px';
   confetti.style.left = Math.random() * 100 + 'vw';
@@ -1469,15 +1534,15 @@ for (let i = 0; i < 80; i++) {
 
   document.body.appendChild(confetti);
 
-  const fall = confetti.animate([
-    { transform: 'translateY(0)' },
-    { transform: `translateY(${window.innerHeight + 50}px)` }
+  confetti.animate([
+    { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
+    { transform: `translateY(${window.innerHeight + 50}px) rotate(360deg)`, opacity: 0.8 }
   ], {
-    duration: 2000 + Math.random() * 1000,
-    easing: 'linear'
+    duration: 2500 + Math.random() * 1000,
+    easing: 'ease-out'
   });
 
-  fall.onfinish = () => confetti.remove();
+  setTimeout(() => confetti.remove(), 3500);
 }
 
 // очистка формы
@@ -1487,7 +1552,11 @@ setTimeout(() => {
   form.reset();
   document.getElementById('captcha').value = '';
   document.getElementById('plusOneName').value = '';
-}, 200);
+}, 300);
+
+// закрытие overlay по клику
+overlay.addEventListener('click', () => {
+  overlay.classList.remove('active');
 });
 
 
@@ -1576,5 +1645,15 @@ if (window.innerWidth <= 700) {
 }      
     })();
   </script>
+  <!-- SUCCESS OVERLAY -->
+<div id="successOverlay">
+  <div class="success-box">
+    <div class="success-icon">✓</div>
+    <div class="success-text">
+      Поздравляем,<br>
+      теперь вы точно приглашены!
+    </div>
+  </div>
+</div>
 </div>
 </html>
