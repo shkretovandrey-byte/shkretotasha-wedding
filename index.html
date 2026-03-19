@@ -1421,8 +1421,8 @@ document.getElementById('sendToTelegram').addEventListener('click', async functi
     attend: attend.value,
     plusOne: document.querySelector('input[name="plusOne"]:checked')?.value || 'Нет',
     plusOneName: document.getElementById('plusOneName').value.trim() || '',
-    alcohol: [...document.querySelectorAll('#rsvpForm .checkbox-group input:checked')]
-      .map(cb => cb.value).join(', ') || 'не выбрано',
+    alcohol: [...document.querySelectorAll('.checkbox-group input:checked')]
+    .map(cb => cb.value).join(', ') || 'не выбрано',
     wishes: document.getElementById('wishes').value.trim() || 'нет',
     song: document.getElementById('song').value.trim() || 'не указана',
     photo: document.getElementById('photoLink').value.trim() || 'нет'
@@ -1451,15 +1451,11 @@ document.getElementById('sendToTelegram').addEventListener('click', async functi
 
 // ===== SUCCESS =====
 
-// 1. модалка
-const successModalEl = document.getElementById('successModal');
-successModalEl.classList.add('active');
-
-// 2. звук (создаём НА МЕСТЕ, гарантированно)
+// звук
 const dingSound = new Audio('https://www.soundjay.com/buttons/sounds/button-3.mp3');
 dingSound.play().catch(() => {});
 
-// 3. конфетти (без setTimeout — сразу)
+// конфетти
 for (let i = 0; i < 80; i++) {
   const confetti = document.createElement('div');
   confetti.style.position = 'fixed';
@@ -1484,7 +1480,7 @@ for (let i = 0; i < 80; i++) {
   fall.onfinish = () => confetti.remove();
 }
 
-// 4. очистка формы (ВАЖНО: с reset + поля)
+// очистка формы
 const form = document.getElementById('rsvpForm');
 
 setTimeout(() => {
