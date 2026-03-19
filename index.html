@@ -1320,7 +1320,6 @@ document.addEventListener('DOMContentLoaded', () => {
       
     // 👉 капча
 const captchaModal = document.getElementById('captchaModal');
-const captchaModal = document.getElementById('captchaModal');
 const closeCaptchaModal = document.getElementById('closeCaptchaModal');
 
 function showCaptchaError() {
@@ -1528,15 +1527,15 @@ if (parseInt(captchaInput) !== captchaAnswer) {
     song: document.getElementById('song').value.trim() || 'не указана',
     photo: document.getElementById('photoLink').value.trim() || 'нет'
    });
-}
 
   let ok = false;
-
+  
   try {
     await fetch("https://script.google.com/macros/s/AKfycbyMVmJ9UhzL39YCXptUkhTwoPUlPTA4-5QOf0SCxyV3d8bOgGGJ42PMt55c7o8NTHTZ/exec", {
       method: "POST",
       body: JSON.stringify(data)
     });
+  
 
     ok = true;
   } catch (e) {
@@ -1564,9 +1563,9 @@ const overlay = document.getElementById('successOverlay');
 if (overlay) {
   overlay.classList.add('active');
 
-  overlay.addEventListener('click', () => {
+  overlay.onclick = () => {
     overlay.classList.remove('active');
-  });
+  };
 }
 
 // конфетти (чуть легче и плавнее)
