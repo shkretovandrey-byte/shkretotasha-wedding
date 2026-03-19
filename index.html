@@ -1299,28 +1299,39 @@
       <p id="modalDesc" style="font-size: 1.2rem;"></p>
     </div>
   </div>
+<!-- CAPTCHA ERROR MODAL -->
+<div class="modal" id="captchaModal">
+  <div class="modal-content" style="text-align:center; max-width:420px;">
+    <span class="close" id="closeCaptchaModal">&times;</span>
 
+    <img 
+      src="https://i.pinimg.com/236x/e1/61/2d/e1612d68a1c4d2363d5daeee8c94d020.jpg"
+      style="width:100%; border-radius:12px; margin-bottom:15px;"
+    >
+
+    <p style="font-size:18px;">
+      Неправильно 😈<br>
+      попробуй ещё раз
+    </p>
+  </div>
+</div>
   <script>
     (function() {
 
       
     // 👉 капча
-    const captchaModal = document.getElementById('captchaModal');
-    const closeCaptchaModal = document.getElementById('closeCaptchaModal');
+const captchaModal = document.getElementById('captchaModal');
+const closeCaptchaModal = document.getElementById('closeCaptchaModal');
 
-    function showCaptchaError() {
-      captchaModal.classList.add('active');
-    }
+closeCaptchaModal?.addEventListener('click', () => {
+  captchaModal?.classList.remove('active');
+});
 
-    closeCaptchaModal.addEventListener('click', () => {
-      captchaModal.classList.remove('active');
-    });
-
-    window.addEventListener('click', (e) => {
-      if (e.target === captchaModal) {
-        captchaModal.classList.remove('active');
-      }
-    });
+window.addEventListener('click', (e) => {
+  if (e.target === captchaModal) {
+    captchaModal.classList.remove('active');
+  }
+});
       
       // ТАЙМЕР
       const targetDate = new Date("2026-07-24T17:00:00").getTime();
@@ -1414,8 +1425,6 @@ plusOneRadios.forEach(radio => {
     }
   });
 });
-
-togglePlusOne();
 
 // на случай если страница перезагрузилась с выбором
 togglePlusOne();
@@ -1679,22 +1688,7 @@ if (window.innerWidth <= 700) {
     </div>
   </div>
 
-<!-- CAPTCHA ERROR MODAL -->
-<div class="modal" id="captchaModal">
-  <div class="modal-content" style="text-align:center; max-width:420px;">
-    <span class="close" id="closeCaptchaModal">&times;</span>
 
-    <img 
-      src="https://i.pinimg.com/236x/e1/61/2d/e1612d68a1c4d2363d5daeee8c94d020.jpg"
-      style="width:100%; border-radius:12px; margin-bottom:15px;"
-    >
-
-    <p style="font-size:18px;">
-      Ну почитай уже 😈<br>
-      хотя бы на калькуляторе
-    </p>
-  </div>
-</div>
   
 </body>
 </html>
