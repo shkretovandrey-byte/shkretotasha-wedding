@@ -1415,7 +1415,7 @@ let captchaAnswer = num1 + num2;
   document.body.appendChild(modal);
 }
 
-// Отправка в Telegram (на самом деле в Google Sheets)
+// Отправка в Google Sheets
 document.getElementById('sendToTelegram').addEventListener('click', async function() {
   const btn = this;
   btn.disabled = true;
@@ -1451,7 +1451,7 @@ document.getElementById('sendToTelegram').addEventListener('click', async functi
     return;
   }
 
-  // Собираем данные для отправки (уже как FormData)
+  // Собираем данные
   const formData = new URLSearchParams();
   formData.append('name', name);
   formData.append('phone', phoneDigits);
@@ -1463,23 +1463,40 @@ document.getElementById('sendToTelegram').addEventListener('click', async functi
   formData.append('song', document.getElementById('song').value.trim() || 'не указана');
   formData.append('photo', document.getElementById('photoLink').value.trim() || 'нет');
 
+  // Для отладки выведем данные в консоль
+  console.log('Отправляемые данные:', Object.fromEntries(formData));
+
   try {
-    // Отправляем как application/x-www-form-urlencoded
     const response = await fetch("https://script.google.com/macros/s/AKfycbyMVmJ9UhzL39YCXptUkhTwoPUlPTA4-5QOf0SCxyV3d8bOgGGJ42PMt55c7o8NTHTZ/exec", {
       method: "POST",
       body: formData,
       headers: {
         "Content-Type": "application/x-www-form-urlencoded"
-      },
-      // Важно: не ждём перенаправления, Google Apps Script иногда возвращает 302
-      redirect: "follow"
+      }
+      // Убрал redirect: "follow", чтобы видеть реальный ответ
     });
 
-    // Даже если ответ не ok, мы всё равно считаем, что данные ушли
-    // (потому что Google Script может вернуть 302 даже при успехе)
-    console.log('Ответ сервера:', response.status);
+    console.log('Статус ответа:', response.status);
+    
+    // Пытаемся прочитать ответ как текст (даже если это HTML)
+    const responseText = await response.text();
+    console.log('Текст ответа:', responseText);
 
-    // Успех (показываем модалку)
+    // Если статус не 200, возможно, ошибка
+    if (!response.ok) {
+      throw new Error(`HTTP ошибка ${response.status}: ${responseText}`);
+    }
+
+    // Пытаемся распарсить JSON (если это JSON)
+    let result;
+    try {
+      result = JSON.parse(responseText);
+    } catch (e) {
+      result = { raw: responseText };
+    }
+    console.log('Распарсенный ответ:', result);
+
+    // Успех — показываем модалку
     const successModal = document.getElementById('successModal');
     if (successModal) successModal.classList.add('active');
 
@@ -1491,10 +1508,8 @@ document.getElementById('sendToTelegram').addEventListener('click', async functi
     const ding = new Audio('https://www.soundjay.com/buttons/sounds/button-3.mp3');
     ding.play().catch(() => {});
 
-    // Конфетти (можно оставить как есть)
-    for (let i = 0; i < 60; i++) { // немного уменьшил количество
-      // ... ваш код конфетти ...
-    }
+    // Конфетти (оставьте свой код или раскомментируйте)
+    // for (let i = 0; i < 60; i++) { ... }
 
     // Сброс формы через 3 секунды
     setTimeout(() => {
@@ -1517,7 +1532,7 @@ document.getElementById('sendToTelegram').addEventListener('click', async functi
 
   } catch (error) {
     console.error('Ошибка при отправке:', error);
-    alert('Не удалось отправить. Проверьте интернет или напишите нам в Telegram.');
+    alert('Ошибка: ' + error.message + '\n\nПопробуйте ещё раз или напишите нам в Telegram.');
     resetButton();
   }
 });
