@@ -792,6 +792,92 @@
   font-size: 18px;
 }
 
+/* обычное состояние */
+.story-paragraph {
+  transition: all 0.4s ease;
+  cursor: pointer;
+}
+
+/* состояние "чат" */
+.story-paragraph.chat-mode {
+  background: #e9f2ff;
+  border-left: 4px solid #2b6fff;
+  padding: 12px 14px;
+  border-radius: 12px;
+  margin: 12px 0;
+  position: relative;
+  max-width: 80%;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+/* имитация сообщения слева */
+.story-paragraph.chat-mode::before {
+  content: "✉️";
+  position: absolute;
+  left: -28px;
+  top: 10px;
+  font-size: 16px;
+  opacity: 0.7;
+}    
+
+    /* ===== TELEGRAM CHAT STYLE ===== */
+
+.story-paragraph {
+  max-width: 70%;
+  padding: 12px 16px;
+  border-radius: 18px;
+  margin: 10px 0;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  line-height: 1.5;
+}
+
+/* левый (он) */
+.story-paragraph.left {
+  background: #e8f0ff;
+  border-bottom-left-radius: 4px;
+  margin-right: auto;
+}
+
+/* правый (она) */
+.story-paragraph.right {
+  background: #dff7e6;
+  border-bottom-right-radius: 4px;
+  margin-left: auto;
+}
+
+/* hover эффект как в чатах */
+.story-paragraph:hover {
+  transform: scale(1.02);
+}
+
+/* аватарки (визуальный Telegram эффект) */
+.story-paragraph.left::before {
+  content: "👨";
+  position: absolute;
+  left: -28px;
+  top: 8px;
+}
+
+.story-paragraph.right::before {
+  content: "👩";
+  position: absolute;
+  right: -28px;
+  top: 8px;
+}
+    .story-paragraph.expanded {
+  filter: brightness(1.05);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+}
+
+/* мобилка */
+@media (max-width: 700px) {
+  .story-paragraph {
+    max-width: 85%;
+  }
+}
+
 /* кнопки */
 .carousel-btn {
   position: absolute;
@@ -1127,12 +1213,29 @@
   <section class="container">
     <h2 class="section-title">История любви</h2>
 <div class="card love-story">
-  <p>29 октября 2024 года Андрей впервые подошёл к Наташе — обсудить рабочую задачу. Это был обычный повод для разговора, но именно с него всё началось. После встречи мы продолжили общаться по рабочим вопросам, постепенно всё больше узнавая друг друга. Незаметно для нас разговоры стали длиннее, темы — шире, а общение — уже совсем не только про работу.</p>
-      <p style="margin-top: 15px;">Так мы «заобщались». И в какой-то момент Андрей решился пригласить Наташу на свидание. Тогда это казалось скорее дружеской встречей — мы оба думали об этом примерно так же. Но жизнь распорядилась иначе. Всё закрутилось быстро и естественно: встречи стали чаще, чувства — глубже, а сомнений — всё меньше.</p>
-      <p style="margin-top: 15px;">29 августа 2025 года стало по-настоящему особенным днём — днём нашего первого свидания, с которого началась новая глава.</p>
-      <p style="margin-top: 15px;">Потом всё развивалось легко и тепло. Андрей часто спрашивал: «Что ты хочешь на ужин?» — и за этими простыми словами стояла забота и желание быть рядом. Постепенно Наташа переехала к Андрею, и мы начали жить вместе, создавая свой общий уют и ритм жизни.</p>
-      <p style="margin-top: 15px;">Зимой мы поехали в Тольятти. И 27 декабря 2025 года произошло главное событие — Андрей сделал Наташе предложение. Это был момент счастья, в котором соединились уверенность, любовь и наше общее будущее.</p>
-      <p style="margin-top: 15px;">Теперь мы приглашаем вас разделить с нами этот день — день, с которого начинается наша семейная история. 🤍💍✨</p>
+  <p class="story-paragraph left">
+  29 октября 2024 года Андрей впервые подошёл к Наташе — обсудить рабочую задачу...
+</p>
+
+<p class="story-paragraph right">
+  Так мы «заобщались»...
+</p>
+
+<p class="story-paragraph left">
+  29 августа 2025 года стало по-настоящему особенным днём...
+</p>
+
+<p class="story-paragraph right">
+  Потом всё развивалось легко и тепло...
+</p>
+
+<p class="story-paragraph left">
+  Зимой мы поехали в Тольятти...
+</p>
+
+<p class="story-paragraph right">
+  Теперь мы приглашаем вас разделить с нами этот день...
+</p>
     </div>
   </section>
 
@@ -1904,6 +2007,25 @@ prevBtn.addEventListener('click', () => {
       </div>
     </div>
   </div>
+<script>
+document.querySelectorAll('.story-paragraph').forEach(p => {
+  p.addEventListener('click', () => {
 
+    p.classList.toggle('expanded');
+
+    if (p.classList.contains('expanded')) {
+      p.animate([
+        { transform: 'scale(0.98)', opacity: 0.7 },
+        { transform: 'scale(1)', opacity: 1 }
+      ], {
+        duration: 200,
+        easing: 'ease-out'
+      });
+    }
+
+  });
+});
+</script>
+</body>
 </body>
 </html>
