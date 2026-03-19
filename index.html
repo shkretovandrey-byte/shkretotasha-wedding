@@ -1348,8 +1348,9 @@ togglePlusOne();
       const num1 = Math.floor(Math.random()*5)+1;
       const num2 = Math.floor(Math.random()*5)+1;
       captchaQuestion.innerText = `${num1} + ${num2} = ?`;
-      const captchaAnswer = num1 + num2;
+let captchaAnswer = num1 + num2;
 
+      
       //Мемная ошибка
 
       function showMemeError() {
@@ -1430,36 +1431,53 @@ document.getElementById('sendToTelegram').addEventListener('click', async functi
 
   // ✅ вместо alert
   successModal.classList.add('active');
+  // 🔔 ДИНЬ
+ding.currentTime = 0;
+ding.play().catch(() => {});
   // 🎊 конфетти
-for (let i = 0; i < 80; i++) {
+for (let i = 0; i < 120; i++) {
   const confetti = document.createElement('div');
 
   confetti.style.position = 'fixed';
-  confetti.style.width = '8px';
-  confetti.style.height = '8px';
+  confetti.style.width = '10px';
+  confetti.style.height = '10px';
   confetti.style.background = ['#d52b1e', '#0039a6', '#ffffff'][Math.floor(Math.random()*3)];
-  confetti.style.top = '-10px';
+  confetti.style.top = '-20px';
   confetti.style.left = Math.random() * 100 + 'vw';
-  confetti.style.opacity = '0.9';
+  confetti.style.opacity = '1';
   confetti.style.zIndex = '9999';
-  confetti.style.borderRadius = '50%';
+  confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
 
   document.body.appendChild(confetti);
 
   const fall = confetti.animate([
-    { transform: 'translateY(0)' },
-    { transform: `translateY(${window.innerHeight + 50}px)` }
+    { transform: 'translateY(0) rotate(0deg)' },
+    { transform: `translateY(${window.innerHeight + 100}px) rotate(${Math.random()*360}deg)` }
   ], {
-    duration: 2000 + Math.random()*1000,
-    easing: 'linear'
+    duration: 2500 + Math.random()*1500,
+    easing: 'ease-out'
   });
 
   fall.onfinish = () => confetti.remove();
 }
+  // очистка формы
+const form = document.getElementById('rsvpForm');
+form.reset();
 
-  // опционально — очистка формы
-  document.getElementById('rsvpForm').reset();
+// скрываем +1 блоки обратно
+plusOneBlock.style.display = 'none';
+plusOneNameGroup.style.display = 'none';
+
+// сбрасываем выбор +1
+plusOneRadios.forEach(r => {
+  r.checked = (r.value === 'Нет');
 });
+
+// сброс капчи (новая)
+const newNum1 = Math.floor(Math.random()*5)+1;
+const newNum2 = Math.floor(Math.random()*5)+1;
+captchaQuestion.innerText = `${newNum1} + ${newNum2} = ?`;
+captchaAnswer = newNum1 + newNum2;
 
 
 
