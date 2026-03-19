@@ -1387,30 +1387,52 @@ togglePlusOne();
   document.body.appendChild(modal);
 }
 
-      // Отправка в Telegram
+const form = document.getElementById('rsvpForm');
+const sendBtn = document.getElementById('sendToTelegram');
 
-window.addEventListener('click', (e) => {
-  if (e.target === successModal) successModal.classList.remove('active');
-});
-document.getElementById('sendToTelegram').addEventListener('click', async function() {
+const successModal = document.getElementById('successModal');
+const closeSuccess = document.getElementById('closeSuccess');
+
+const ding = document.getElementById('ding'); // звук успеха
+let captchaAnswer = window.captchaAnswer || 0; // если у тебя генерится отдельно
+
+// -------------------- MODAL --------------------
+
+if (successModal) {
+  window.addEventListener('click', (e) => {
+    if (e.target === successModal) {
+      successModal.classList.remove('active');
+    }
+  });
+}
+
+if (closeSuccess) {
+  closeSuccess.addEventListener('click', () => {
+    successModal.classList.remove('active');
+  });
+}
+
+// -------------------- SEND FORM --------------------
+
+sendBtn.addEventListener('click', async function () {
+  const btn = this;
+
+  // CAPTCHA
   const captchaInput = document.getElementById('captcha').value.trim();
   if (parseInt(captchaInput) !== captchaAnswer) {
     alert('Неправильный ответ на капчу');
     return;
   }
 
+  // FIELDS
   const name = document.getElementById('name').value.trim();
   const phoneRaw = document.getElementById('phone').value.trim();
   const phoneDigits = phoneRaw.replace(/\D/g, '');
+
   const attend = document.querySelector('input[name="attend"]:checked');
 
-  const btn = document.getElementById('sendToTelegram');
-btn.disabled = true;
-btn.innerText = "Отправка...";
-
-  // 🔴 ПРОВЕРКИ
   if (!name || !phoneRaw || !attend) {
-    showMemeError();
+    alert('Заполните обязательные поля');
     return;
   }
 
@@ -1419,8 +1441,13 @@ btn.innerText = "Отправка...";
     return;
   }
 
+  // LOCK BUTTON
+  btn.disabled = true;
+  btn.innerText = "Отправка...";
+
+  // DATA
   const data = {
-    name: name,
+    name,
     phone: phoneDigits,
     attend: attend.value,
     plusOne: document.querySelector('input[name="plusOne"]:checked')?.value || 'Нет',
@@ -1432,64 +1459,68 @@ btn.innerText = "Отправка...";
     photo: document.getElementById('photoLink').value.trim() || 'нет'
   };
 
-let sendOk = true;
+  // SEND
+  let sendOk = true;
 
-try {
-  await fetch("https://script.google.com/macros/s/AKfycbyMVmJ9UhzL39YCXptUkhTwoPUlPTA4-5QOf0SCxyV3d8bOgGGJ42PMt55c7o8NTHTZ/exec", {
-    method: "POST",
-    body: JSON.stringify(data)
-  });
-} catch (e) {
-  sendOk = false;
-  console.error("Ошибка отправки:", e);
-}
-  });
+  try {
+    await fetch("https://script.google.com/macros/s/AKfycbyMVmJ9UhzL39YCXptUkhTwoPUlPTA4-5QOf0SCxyV3d8bOgGGJ42PMt55c7o8NTHTZ/exec", {
+      method: "POST",
+      body: JSON.stringify(data)
+    });
+  } catch (e) {
+    console.error(e);
+    sendOk = false;
+  }
 
-if (!sendOk) {
-  alert("Ошибка отправки. Попробуйте ещё раз");
+  // UNLOCK BUTTON
   btn.disabled = false;
   btn.innerText = "Отправить";
-  return;
-}
-      
-  // ✅ вместо alert
+
+  if (!sendOk) {
+    alert("Ошибка отправки. Попробуйте ещё раз");
+    return;
+  }
+
+  // SUCCESS UI
   successModal.classList.add('active');
 
-      document.getElementById('rsvpForm').scrollIntoView({
-  behavior: 'smooth',
-  block: 'center'
-});
-  ding.play().catch(() => {});
-  // 🎊 конфетти
-
-      if (sendOk) {for (let i = 0; i < 80; i++) {
-  const confetti = document.createElement('div');
-
-  confetti.style.position = 'fixed';
-  confetti.style.width = '8px';
-  confetti.style.height = '8px';
-  confetti.style.background = ['#d52b1e', '#0039a6', '#ffffff'][Math.floor(Math.random()*3)];
-  confetti.style.top = '-10px';
-  confetti.style.left = Math.random() * 100 + 'vw';
-  confetti.style.opacity = '0.9';
-  confetti.style.zIndex = '9999';
-  confetti.style.borderRadius = '50%';
-
-  document.body.appendChild(confetti);
-
-  const fall = confetti.animate([
-    { transform: 'translateY(0)' },
-    { transform: `translateY(${window.innerHeight + 50}px)` }
-  ], {
-    duration: 2000 + Math.random()*1000,
-    easing: 'linear'
+  document.getElementById('rsvpForm').scrollIntoView({
+    behavior: 'smooth',
+    block: 'center'
   });
 
-  fall.onfinish = () => confetti.remove();
-}}
+  // SOUND
+  if (ding) {
+    ding.play().catch(() => {});
+  }
 
-  // опционально — очистка формы
-  document.getElementById('rsvpForm').reset();
+  // CONFETTI
+  for (let i = 0; i < 80; i++) {
+    const confetti = document.createElement('div');
+    confetti.style.position = 'fixed';
+    confetti.style.width = '8px';
+    confetti.style.height = '8px';
+    confetti.style.background = ['#d52b1e', '#0039a6', '#ffffff'][Math.floor(Math.random() * 3)];
+    confetti.style.top = '-10px';
+    confetti.style.left = Math.random() * 100 + 'vw';
+    confetti.style.borderRadius = '50%';
+    confetti.style.zIndex = '9999';
+
+    document.body.appendChild(confetti);
+
+    const fall = confetti.animate([
+      { transform: 'translateY(0)' },
+      { transform: `translateY(${window.innerHeight + 50}px)` }
+    ], {
+      duration: 2000 + Math.random() * 1000,
+      easing: 'linear'
+    });
+
+    fall.onfinish = () => confetti.remove();
+  }
+
+  // RESET FORM
+  form.reset();
 });
 
 
