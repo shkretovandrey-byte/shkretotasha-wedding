@@ -1388,10 +1388,6 @@ togglePlusOne();
 }
 
       // Отправка в Telegram
-
-window.addEventListener('click', (e) => {
-  if (e.target === successModal) successModal.classList.remove('active');
-});
 document.getElementById('sendToTelegram').addEventListener('click', async function () {
   const btn = this;
 
@@ -1453,52 +1449,49 @@ document.getElementById('sendToTelegram').addEventListener('click', async functi
     return;
   }
 
-  // =========================
-  // 🎉 УСПЕХ (ВАЖНО: порядок)
-  // =========================
+// ===== SUCCESS =====
 
-  successModal.classList.add('active');
+// 1. модалка
+const successModalEl = document.getElementById('successModal');
+successModalEl.classList.add('active');
 
-  ding.play().catch(() => {});
+// 2. звук (создаём НА МЕСТЕ, гарантированно)
+const dingSound = new Audio('https://www.soundjay.com/buttons/sounds/button-3.mp3');
+dingSound.play().catch(() => {});
 
-  // 🎊 КОНФЕТТИ (гарантированно после DOM обновления)
-  setTimeout(() => {
-    for (let i = 0; i < 80; i++) {
-      const confetti = document.createElement('div');
-      confetti.style.position = 'fixed';
-      confetti.style.width = '8px';
-      confetti.style.height = '8px';
-      confetti.style.background = ['#d52b1e', '#0039a6', '#ffffff'][Math.floor(Math.random() * 3)];
-      confetti.style.top = '-10px';
-      confetti.style.left = Math.random() * 100 + 'vw';
-      confetti.style.borderRadius = '50%';
-      confetti.style.zIndex = '9999';
+// 3. конфетти (без setTimeout — сразу)
+for (let i = 0; i < 80; i++) {
+  const confetti = document.createElement('div');
+  confetti.style.position = 'fixed';
+  confetti.style.width = '8px';
+  confetti.style.height = '8px';
+  confetti.style.background = ['#d52b1e', '#0039a6', '#ffffff'][Math.floor(Math.random() * 3)];
+  confetti.style.top = '-10px';
+  confetti.style.left = Math.random() * 100 + 'vw';
+  confetti.style.borderRadius = '50%';
+  confetti.style.zIndex = '9999';
 
-      document.body.appendChild(confetti);
+  document.body.appendChild(confetti);
 
-      const fall = confetti.animate([
-        { transform: 'translateY(0)' },
-        { transform: `translateY(${window.innerHeight + 50}px)` }
-      ], {
-        duration: 2000 + Math.random() * 1000,
-        easing: 'linear'
-      });
-
-      fall.onfinish = () => confetti.remove();
-    }
-  }, 150);
-
-  // 📍 скролл
-  document.getElementById('rsvpForm').scrollIntoView({
-    behavior: 'smooth',
-    block: 'center'
+  const fall = confetti.animate([
+    { transform: 'translateY(0)' },
+    { transform: `translateY(${window.innerHeight + 50}px)` }
+  ], {
+    duration: 2000 + Math.random() * 1000,
+    easing: 'linear'
   });
 
-  // 🧼 очистка формы (ПОСЛЕ эффектов)
-  setTimeout(() => {
-    document.getElementById('rsvpForm').reset();
-    document.getElementById('captcha').value = '';
-  }, 300);
+  fall.onfinish = () => confetti.remove();
+}
+
+// 4. очистка формы (ВАЖНО: с reset + поля)
+const form = document.getElementById('rsvpForm');
+
+setTimeout(() => {
+  form.reset();
+  document.getElementById('captcha').value = '';
+  document.getElementById('plusOneName').value = '';
+}, 200);
 });
 
 
@@ -1584,28 +1577,8 @@ if (window.innerWidth <= 700) {
   document.querySelectorAll('.outfit-grid').forEach(grid => {
     enableSwipe(grid);
   });
-}
-      
-
- const ding = new Audio('https://www.soundjay.com/buttons/sounds/button-3.mp3'); 
-      
+}      
     })();
-    // ===== УСПЕШНАЯ ОТПРАВКА =====
-const successModal = document.getElementById('successModal');    
-const closeSuccess = document.getElementById('closeSuccess');
-
-if (closeSuccess) {
-  closeSuccess.addEventListener('click', () => {
-    successModal.classList.remove('active');
-    document.getElementById('captcha').value = '';
-  });
-}
   </script>
-  <div class="modal" id="successModal">
-  <div class="modal-content" style="text-align:center;">
-    <h2 style="margin-bottom:10px;">🎉 Готово!</h2>
-    <p style="margin-bottom:20px;">Ваш ответ сохранён 💍</p>
-    <button class="btn" id="closeSuccess">Закрыть</button>
-  </div>
 </div>
 </html>
