@@ -1613,8 +1613,37 @@ generateCaptcha();
   document.body.appendChild(modal);
 }
 
-     function showCaptchaMeme() {
+function showCaptchaMeme() {
+  const modal = document.createElement('div');
 
+  modal.className = 'captcha-meme-modal';
+
+  modal.innerHTML = `
+    <div class="captcha-meme-box">
+      <img 
+        src="https://i.pinimg.com/originals/e1/61/2d/e1612d68a1c4d2363d5daeee8c94d020.jpg"
+        alt="captcha meme"
+        class="captcha-meme-img"
+      >
+      <p class="captcha-meme-text">
+        Неверно 😈<br>
+        Капча стала сложнее
+      </p>
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+
+  setTimeout(() => {
+    modal.remove();
+
+    captchaLevel++;
+    generateCaptcha();
+    document.getElementById('captcha').value = '';
+  }, 4000);
+
+  modal.addEventListener('click', () => modal.remove());
+}
 
       // Отправка в Telegram
 document.getElementById('sendToTelegram').addEventListener('click', async function () {
