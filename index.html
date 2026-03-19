@@ -1260,19 +1260,7 @@
 const captchaModal = document.getElementById('captchaModal');
 const closeCaptchaModal = document.getElementById('closeCaptchaModal');
 
-function showCaptchaError() {
-  captchaModal.classList.add('active');
-}
 
-closeCaptchaModal.addEventListener('click', () => {
-  captchaModal.classList.remove('active');
-});
-
-window.addEventListener('click', (e) => {
-  if (e.target === captchaModal) {
-    captchaModal.classList.remove('active');
-  }
-});
   expectationsInput.addEventListener('click', () => {
     videoModal.classList.add('active');
   });
@@ -1316,6 +1304,26 @@ window.addEventListener('click', (e) => {
 
   <script>
     (function() {
+
+      
+    // 👉 капча
+    const captchaModal = document.getElementById('captchaModal');
+    const closeCaptchaModal = document.getElementById('closeCaptchaModal');
+
+    function showCaptchaError() {
+      captchaModal.classList.add('active');
+    }
+
+    closeCaptchaModal.addEventListener('click', () => {
+      captchaModal.classList.remove('active');
+    });
+
+    window.addEventListener('click', (e) => {
+      if (e.target === captchaModal) {
+        captchaModal.classList.remove('active');
+      }
+    });
+      
       // ТАЙМЕР
       const targetDate = new Date("2026-07-24T17:00:00").getTime();
       function updateCountdown() {
