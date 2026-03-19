@@ -1569,9 +1569,11 @@ generateCaptcha();
     </div>
   `;
 
-  modal.addEventListener('click', () => modal.remove());
-
   document.body.appendChild(modal);
+
+setTimeout(() => {
+  modal.remove();
+}, 4000);
 
     // 🔥 усложнение после ошибки
     captchaLevel++;
