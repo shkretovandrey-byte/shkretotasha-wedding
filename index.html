@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-x8">
+<meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
   <title>Андрей и Наталья — свадьба</title>
   <!-- Шрифты: Playfair Display, Inter, Marck Script -->
@@ -1321,8 +1321,6 @@ plusOneRadios.forEach(radio => {
   });
 });
 
-togglePlusOne();
-
 // на случай если страница перезагрузилась с выбором
 togglePlusOne();
 
@@ -1561,10 +1559,7 @@ if (window.innerWidth <= 700) {
   });
 }
       // ===== УСПЕШНАЯ ОТПРАВКА =====
-const successModal = document.getElementById('successModal');
-window.addEventListener('click', (e) => {
-  if (e.target === successModal) successModal.classList.remove('active');
-});      
+const successModal = document.getElementById('successModal');    
 const closeSuccess = document.getElementById('closeSuccess');
 
 if (closeSuccess) {
