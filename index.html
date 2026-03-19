@@ -1296,8 +1296,14 @@ ding.src = 'https://www.soundjay.com/buttons/sounds/button-3.mp3';
       const modalImg = document.getElementById('modalImg');
       const modalDesc = document.getElementById('modalDesc');
       const closeModal = document.getElementById('closeModal');
-      const successModal = document.getElementById('successModal');
-      const closeSuccess = document.getElementById('closeSuccess');
+const successModal = document.getElementById('successModal');
+const closeSuccess = document.getElementById('closeSuccess');
+
+if (closeSuccess && successModal) {
+  closeSuccess.addEventListener('click', () => {
+    successModal.classList.remove('active');
+  });
+}
 
 window.openModal = function(url, desc) {
   modalImg.src = url;
@@ -1468,8 +1474,9 @@ if (phoneDigits.length < 11) {
 
 
   // ✅ вместо alert
+if (successModal) {
   successModal.classList.add('active');
-
+}
   btn.textContent = '✓ Отправлено';
 status.style.display = 'inline-block';
 status.classList.add('show');
@@ -1610,14 +1617,6 @@ if (window.innerWidth <= 700) {
     enableSwipe(grid);
   });
 }
-
-      
-if (closeSuccess) {
-  closeSuccess.addEventListener('click', () => {
-    successModal.classList.remove('active');
-  });
-}
-
       
     })();
   </script>
