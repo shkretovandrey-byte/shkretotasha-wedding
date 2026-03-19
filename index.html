@@ -682,6 +682,12 @@
       border-bottom: 3px solid #d52b1e;
       word-break: break-word;
     }
+    .hero-content,
+.timeline-item,
+.outfit-img,
+.gallery-item {
+  will-change: transform;
+}
 
     /* ========== МОБИЛЬНАЯ АДАПТАЦИЯ ========== */
     @media (max-width: 700px) {
@@ -1483,13 +1489,6 @@ btn.textContent = '✓ Отправлено';
 status.style.display = 'inline-block';
 status.classList.add('show');
 
-    // Успех — показываем модалку
-    const successModal = document.getElementById('successModal');
-    if (successModal) successModal.classList.add('active');
-
-    btn.textContent = '✓ Отправлено';
-    status.style.display = 'inline-block';
-    status.classList.add('show');
 
     // Звук
     const ding = new Audio('https://www.soundjay.com/buttons/sounds/button-3.mp3');
@@ -1590,6 +1589,7 @@ function enableSwipe(container) {
       setTimeout(() => {
         showCard(current);
       }, 300);
+      currentX = 0;
     });
   });
 }
