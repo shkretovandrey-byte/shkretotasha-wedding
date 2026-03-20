@@ -852,6 +852,20 @@
   transform: scale(1.02);
 }
 
+    .story-paragraph {
+  transition: all 0.35s ease;
+  cursor: pointer;
+}
+
+/* состояние раскрытого сообщения */
+.story-paragraph.expanded {
+  background: #eef6ff;
+  border-radius: 14px;
+  padding: 12px 16px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  transform: scale(1.01);
+}
+
 /* аватарки (визуальный Telegram эффект) */
 .story-paragraph.left::before {
   content: "👨";
@@ -869,6 +883,19 @@
     .story-paragraph.expanded {
   filter: brightness(1.05);
   box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+}
+    .story-paragraph {
+  transition: all 0.35s ease;
+  cursor: pointer;
+}
+
+/* состояние раскрытого сообщения */
+.story-paragraph.expanded {
+  background: #eef6ff;
+  border-radius: 14px;
+  padding: 12px 16px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  transform: scale(1.01);
 }
 
 /* мобилка */
@@ -2008,22 +2035,34 @@ prevBtn.addEventListener('click', () => {
     </div>
   </div>
 <script>
-document.querySelectorAll('.story-paragraph').forEach(p => {
-  p.addEventListener('click', () => {
+document.querySelectorAll('.story-paragraph').forEach((p, index) => {
 
-    p.classList.toggle('expanded');
+  let isExpanded = false;
 
-    if (p.classList.contains('expanded')) {
-      p.animate([
-        { transform: 'scale(0.98)', opacity: 0.7 },
-        { transform: 'scale(1)', opacity: 1 }
-      ], {
-        duration: 200,
-        easing: 'ease-out'
-      });
-    }
+  const expand = () => {
+    if (isExpanded) return;
+    isExpanded = true;
 
-  });
+    p.classList.add('expanded');
+
+    p.animate([
+      { transform: 'scale(0.98)', opacity: 0.6 },
+      { transform: 'scale(1)', opacity: 1 }
+    ], {
+      duration: 250,
+      easing: 'ease-out'
+    });
+  };
+
+  // 1) клик открывает сразу
+  p.addEventListener('click', expand);
+
+  // 2) автo-раскрытие через 30 секунд
+  setTimeout(() => {
+    expand();
+  }, 30000 + index * 1200); 
+  // небольшая задержка между сообщениями = эффект "потока переписки"
+
 });
 </script>
 </body>
