@@ -788,8 +788,27 @@
 }
 
 .gallery-caption {
-  margin-top: 10px;
-  font-size: 18px;
+  margin-top: -60px;
+  padding: 12px 16px;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,0.7),
+    rgba(0,0,0,0)
+  );
+
+  border-radius: 0 0 18px 18px;
+  text-align: left;
+}
+.gallery-slide {
+  position: relative;
+}
+
+.gallery-slide img {
+  display: block;
 }
 
 /* обычное состояние */
@@ -905,6 +924,34 @@
   }
 }
 
+/* ===== MOBILE INSTAGRAM CAROUSEL ===== */
+  .gallery-carousel {
+    overflow: hidden;
+  }
+
+  .gallery-track {
+    display: flex;
+    gap: 16px;
+    padding: 10px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .gallery-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .gallery-slide {
+    min-width: 85%;
+    flex: 0 0 auto;
+    scroll-snap-align: center;
+  }
+
+  .gallery-slide img {
+    border-radius: 20px;
+  }
+   
 /* кнопки */
 .carousel-btn {
   position: absolute;
@@ -2218,6 +2265,10 @@ prevBtn.addEventListener('click', () => {
   index = (index - 1 + slides.length) % slides.length;
   updateCarousel();
 });    
+if (window.innerWidth <= 700) {
+  document.querySelector('.carousel-btn.prev').style.display = 'none';
+  document.querySelector('.carousel-btn.next').style.display = 'none';
+}
   </script>
 
    <!-- SUCCESS OVERLAY -->
