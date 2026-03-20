@@ -788,27 +788,8 @@
 }
 
 .gallery-caption {
-  margin-top: -60px;
-  padding: 12px 16px;
-  color: white;
-  font-size: 16px;
-  font-weight: 600;
-
-  background: linear-gradient(
-    to top,
-    rgba(0,0,0,0.7),
-    rgba(0,0,0,0)
-  );
-
-  border-radius: 0 0 18px 18px;
-  text-align: left;
-}
-.gallery-slide {
-  position: relative;
-}
-
-.gallery-slide img {
-  display: block;
+  margin-top: 10px;
+  font-size: 18px;
 }
 
 /* обычное состояние */
@@ -924,34 +905,6 @@
   }
 }
 
-/* ===== MOBILE INSTAGRAM CAROUSEL ===== */
-  .gallery-carousel {
-    overflow: hidden;
-  }
-
-  .gallery-track {
-    display: flex;
-    gap: 16px;
-    padding: 10px;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .gallery-track::-webkit-scrollbar {
-    display: none;
-  }
-
-  .gallery-slide {
-    min-width: 85%;
-    flex: 0 0 auto;
-    scroll-snap-align: center;
-  }
-
-  .gallery-slide img {
-    border-radius: 20px;
-  }
-   
 /* кнопки */
 .carousel-btn {
   position: absolute;
@@ -1316,7 +1269,7 @@
   padding: 15px;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 10px;
 }
 
 /* сообщение */
@@ -1324,20 +1277,16 @@
   display: flex;
   align-items: flex-end;
   gap: 8px;
-    margin-bottom: 4px;
-
 }
 
 /* левое */
 .msg.left {
   justify-content: flex-start;
-  margin-bottom: 8px; 
 }
 
 /* правое */
 .msg.right {
   justify-content: flex-end;
-  margin-bottom: 8px; 
 }
 
 /* аватар */
@@ -1355,8 +1304,6 @@
   font-size: 15px;
   position: relative;
   line-height: 1.4;
-    padding: 12px 16px;
-
 }
 
 /* цвета */
@@ -1455,6 +1402,8 @@
   </section>
 
   <!-- ИСТОРИЯ ЛЮБВИ -->
+  <section class="container">
+  <h2 class="section-title">История любви</h2>
   <div class="chat">
 
   <div class="chat-header">
@@ -1464,7 +1413,7 @@
       <div class="chat-status">был(а) недавно</div>
     </div>
   </div>
-
+ <div class="chat-body">  
   <div class="msg left slow">
   <img src="avatar-andrey.jpg" class="avatar">
   <div class="bubble">
@@ -1472,7 +1421,7 @@
     <span class="time">18:12</span>
   </div>
 </div>
-
+</div>
 <div class="msg right fast">
   <img src="avatar-natasha.jpg" class="avatar">
   <div class="bubble">
@@ -1507,7 +1456,6 @@
 </div>
 
   </div>
-</div>
 
   <!-- МЕМ 1 -->
 <section class="container">
@@ -2245,7 +2193,7 @@ if (window.innerWidth <= 700) {
 }      
     })();
 // ===== GALLERY CAROUSEL =====
-const track = document.getElementById('galleryTrack');
+document.addEventListener('DOMContentLoaded', () => { const track = document.getElementById('galleryTrack');});
 const slides = document.querySelectorAll('.gallery-slide');
 const prevBtn = document.querySelector('.carousel-btn.prev');
 const nextBtn = document.querySelector('.carousel-btn.next');
@@ -2265,10 +2213,6 @@ prevBtn.addEventListener('click', () => {
   index = (index - 1 + slides.length) % slides.length;
   updateCarousel();
 });    
-if (window.innerWidth <= 700) {
-  document.querySelector('.carousel-btn.prev').style.display = 'none';
-  document.querySelector('.carousel-btn.next').style.display = 'none';
-}
   </script>
 
    <!-- SUCCESS OVERLAY -->
@@ -2313,7 +2257,6 @@ document.querySelectorAll('.story-paragraph').forEach((p, index) => {
 });
 </script>
 //“печатает…”
-<script>
 <script>
 const messages = document.querySelectorAll('.msg');
 const chat = document.querySelector('.chat-body');
@@ -2416,6 +2359,6 @@ async function runChat() {
 
 setTimeout(runChat, 1000);
 </script>
-</script>
+
 </body>
 </html>
