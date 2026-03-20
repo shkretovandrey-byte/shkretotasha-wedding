@@ -1301,19 +1301,34 @@
   margin-top: 4px;
 }
 
-/* анимация появления */
-.msg {
-  opacity: 0;
-  transform: translateY(10px);
-  animation: msgFade 0.4s ease forwards;
+    /* typing dots */
+.bubble.typing {
+  display: flex;
+  gap: 4px;
+  align-items: center;
 }
 
-.msg:nth-child(1) { animation-delay: 0.2s; }
-.msg:nth-child(2) { animation-delay: 0.4s; }
-.msg:nth-child(3) { animation-delay: 0.6s; }
-.msg:nth-child(4) { animation-delay: 0.8s; }
-.msg:nth-child(5) { animation-delay: 1s; }
-.msg:nth-child(6) { animation-delay: 1.2s; }
+.bubble.typing span {
+  width: 6px;
+  height: 6px;
+  background: #999;
+  border-radius: 50%;
+  display: inline-block;
+  animation: blink 1.4s infinite;
+}
+
+.bubble.typing span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.bubble.typing span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes blink {
+  0%, 80%, 100% { opacity: 0.2; }
+  40% { opacity: 1; }
+}
 
 @keyframes msgFade {
   to {
@@ -2225,22 +2240,79 @@ document.querySelectorAll('.story-paragraph').forEach((p, index) => {
 });
 </script>
 //“печатает…”
-  <script>
+<script>
+const messages = document.querySelectorAll('.msg');
 const chat = document.querySelector('.chat-body');
 
-function showTyping() {
+// звук Telegram
+const tgSound = new Audio('https://notificationsounds.com/storage/sounds/file-sounds-1152-pristine.mp3');
+tgSound.volume = 0.3;
+
+// скрываем все сообщения
+messages.forEach(msg => msg.style.display = 'none');
+
+function delay(ms) {
+  return new Promise(res => setTimeout(res, ms));
+}
+
+// typing индикатор
+function showTyping(side, avatar) {
   const typing = document.createElement('div');
-  typing.className = 'msg left';
+  typing.className = 'msg ' + side;
   typing.innerHTML = `
-    <img src="avatar-andrey.jpg" class="avatar">
-    <div class="bubble">печатает...</div>
+    <img src="${avatar}" class="avatar">
+    <div class="bubble typing">
+      <span></span><span></span><span></span>
+    </div>
   `;
   chat.appendChild(typing);
 
-  setTimeout(() => typing.remove(), 1200);
+  return typing;
 }
 
-setTimeout(showTyping, 1500);
+// показ сообщений по одному
+async function runChat() {
+
+  for (let i = 0; i < messages.length; i++) {
+
+    const msg = messages[i];
+    const side = msg.classList.contains('right') ? 'right' : 'left';
+    const avatar = msg.querySelector('.avatar').src;
+
+    // показываем "печатает..."
+    const typing = showTyping(side, avatar);
+
+    // случайная задержка (интрига!)
+    const typingTime = 1200 + Math.random() * 2000;
+    await delay(typingTime);
+
+    typing.remove();
+
+    // показываем сообщение
+    msg.style.display = 'flex';
+
+    msg.animate([
+      { transform: 'translateY(10px)', opacity: 0 },
+      { transform: 'translateY(0)', opacity: 1 }
+    ], {
+      duration: 300,
+      easing: 'ease-out'
+    });
+
+    // звук
+    tgSound.currentTime = 0;
+    tgSound.play().catch(() => {});
+
+    // пауза перед следующим сообщением
+    await delay(800 + Math.random() * 1200);
+
+    // автоскролл вниз
+    chat.scrollTop = chat.scrollHeight;
+  }
+}
+
+// запуск
+setTimeout(runChat, 800);
 </script>
 </body>
 </html>
