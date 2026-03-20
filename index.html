@@ -1203,6 +1203,131 @@
     .map-box iframe {
   height: 320px;
 }
+    /* ===== TELEGRAM FULL UI ===== */
+
+.chat {
+  max-width: 600px;
+  margin: 0 auto;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #e5ddd5;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+}
+
+/* header */
+.chat-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #ffffff;
+  padding: 12px 16px;
+  border-bottom: 1px solid #ddd;
+}
+
+.chat-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+}
+
+.chat-name {
+  font-weight: 600;
+}
+
+.chat-status {
+  font-size: 12px;
+  color: #888;
+}
+
+/* body */
+.chat-body {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* сообщение */
+.msg {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+/* левое */
+.msg.left {
+  justify-content: flex-start;
+}
+
+/* правое */
+.msg.right {
+  justify-content: flex-end;
+}
+
+/* аватар */
+.avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+}
+
+/* пузырь */
+.bubble {
+  max-width: 70%;
+  padding: 10px 14px;
+  border-radius: 16px;
+  font-size: 15px;
+  position: relative;
+  line-height: 1.4;
+}
+
+/* цвета */
+.msg.left .bubble {
+  background: white;
+  border-bottom-left-radius: 4px;
+}
+
+.msg.right .bubble {
+  background: #dcf8c6;
+  border-bottom-right-radius: 4px;
+}
+
+/* время */
+.time {
+  display: block;
+  font-size: 11px;
+  color: #888;
+  text-align: right;
+  margin-top: 4px;
+}
+
+/* анимация появления */
+.msg {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: msgFade 0.4s ease forwards;
+}
+
+.msg:nth-child(1) { animation-delay: 0.2s; }
+.msg:nth-child(2) { animation-delay: 0.4s; }
+.msg:nth-child(3) { animation-delay: 0.6s; }
+.msg:nth-child(4) { animation-delay: 0.8s; }
+.msg:nth-child(5) { animation-delay: 1s; }
+.msg:nth-child(6) { animation-delay: 1.2s; }
+
+@keyframes msgFade {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* мобилка */
+@media (max-width: 700px) {
+  .bubble {
+    max-width: 85%;
+  }
+}
   </style>
 </head>
 <body>
@@ -1237,34 +1362,68 @@
   </section>
 
   <!-- ИСТОРИЯ ЛЮБВИ -->
-  <section class="container">
-    <h2 class="section-title">История любви</h2>
-<div class="card love-story">
-  <p class="story-paragraph left">
-  29 октября 2024 года Андрей впервые подошёл к Наташе — обсудить рабочую задачу...
-</p>
+  <div class="chat">
 
-<p class="story-paragraph right">
-  Так мы «заобщались»...
-</p>
-
-<p class="story-paragraph left">
-  29 августа 2025 года стало по-настоящему особенным днём...
-</p>
-
-<p class="story-paragraph right">
-  Потом всё развивалось легко и тепло...
-</p>
-
-<p class="story-paragraph left">
-  Зимой мы поехали в Тольятти...
-</p>
-
-<p class="story-paragraph right">
-  Теперь мы приглашаем вас разделить с нами этот день...
-</p>
+  <div class="chat-header">
+    <img src="avatar-andrey.jpg" class="chat-avatar">
+    <div class="chat-info">
+      <div class="chat-name">Андрей ❤️ Наталья</div>
+      <div class="chat-status">был(а) недавно</div>
     </div>
-  </section>
+  </div>
+
+  <div class="chat-body">
+
+    <div class="msg left">
+      <img src="avatar-andrey.jpg" class="avatar">
+      <div class="bubble">
+        29 октября 2024 года Андрей впервые подошёл к Наташе...
+        <span class="time">19:21</span>
+      </div>
+    </div>
+
+    <div class="msg right">
+      <img src="avatar-natasha.jpg" class="avatar">
+      <div class="bubble">
+        Так мы «заобщались»...
+        <span class="time">19:23</span>
+      </div>
+    </div>
+
+    <div class="msg left">
+      <img src="avatar-andrey.jpg" class="avatar">
+      <div class="bubble">
+        29 августа 2025 года стало особенным днём...
+        <span class="time">21:04</span>
+      </div>
+    </div>
+
+    <div class="msg right">
+      <img src="avatar-natasha.jpg" class="avatar">
+      <div class="bubble">
+        Потом всё развивалось легко и тепло...
+        <span class="time">21:10</span>
+      </div>
+    </div>
+
+    <div class="msg left">
+      <img src="avatar-andrey.jpg" class="avatar">
+      <div class="bubble">
+        Зимой мы поехали в Тольятти...
+        <span class="time">22:15</span>
+      </div>
+    </div>
+
+    <div class="msg right">
+      <img src="avatar-natasha.jpg" class="avatar">
+      <div class="bubble">
+        Теперь мы приглашаем вас разделить с нами этот день 🤍
+        <span class="time">22:18</span>
+      </div>
+    </div>
+
+  </div>
+</div>
 
   <!-- МЕМ 1 -->
 <section class="container">
@@ -2065,6 +2224,23 @@ document.querySelectorAll('.story-paragraph').forEach((p, index) => {
 
 });
 </script>
-</body>
+//“печатает…”
+  <script>
+const chat = document.querySelector('.chat-body');
+
+function showTyping() {
+  const typing = document.createElement('div');
+  typing.className = 'msg left';
+  typing.innerHTML = `
+    <img src="avatar-andrey.jpg" class="avatar">
+    <div class="bubble">печатает...</div>
+  `;
+  chat.appendChild(typing);
+
+  setTimeout(() => typing.remove(), 1200);
+}
+
+setTimeout(showTyping, 1500);
+</script>
 </body>
 </html>
