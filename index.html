@@ -994,6 +994,31 @@
   }
 }
 
+    /* фото в сообщении */
+.chat-photo {
+  width: 100%;
+  border-radius: 12px;
+  margin-bottom: 5px;
+}
+
+/* реакция */
+.reaction {
+  position: absolute;
+  bottom: -10px;
+  right: 8px;
+  font-size: 14px;
+}
+
+/* hover как в Telegram */
+.bubble:hover {
+  transform: scale(1.02);
+}
+
+/* курсор */
+.bubble {
+  cursor: pointer;
+}
+
 /* мобилка */
 @media (max-width: 700px) {
   .captcha-meme-box {
@@ -1387,55 +1412,46 @@
     </div>
   </div>
 
-  <div class="chat-body">
+  <div class="msg left slow">
+  <img src="avatar-andrey.jpg" class="avatar">
+  <div class="bubble">
+    Привет... слушай, а ты сегодня свободна?
+    <span class="time">18:12</span>
+  </div>
+</div>
 
-    <div class="msg left">
-      <img src="avatar-andrey.jpg" class="avatar">
-      <div class="bubble">
-        29 октября 2024 года Андрей впервые подошёл к Наташе...
-        <span class="time">19:21</span>
-      </div>
-    </div>
+<div class="msg right fast">
+  <img src="avatar-natasha.jpg" class="avatar">
+  <div class="bubble">
+    В целом да 🙂 а что?
+    <span class="time">18:13</span>
+  </div>
+</div>
 
-    <div class="msg right">
-      <img src="avatar-natasha.jpg" class="avatar">
-      <div class="bubble">
-        Так мы «заобщались»...
-        <span class="time">19:23</span>
-      </div>
-    </div>
+<div class="msg left slow">
+  <img src="avatar-andrey.jpg" class="avatar">
+  <div class="bubble">
+    Да вот думал... может увидимся?
+    <span class="time">18:15</span>
+  </div>
+</div>
 
-    <div class="msg left">
-      <img src="avatar-andrey.jpg" class="avatar">
-      <div class="bubble">
-        29 августа 2025 года стало особенным днём...
-        <span class="time">21:04</span>
-      </div>
-    </div>
+<!-- фото -->
+<div class="msg left photo slow">
+  <img src="avatar-andrey.jpg" class="avatar">
+  <div class="bubble">
+    <img src="your-photo.jpg" class="chat-photo">
+    <span class="time">18:16</span>
+  </div>
+</div>
 
-    <div class="msg right">
-      <img src="avatar-natasha.jpg" class="avatar">
-      <div class="bubble">
-        Потом всё развивалось легко и тепло...
-        <span class="time">21:10</span>
-      </div>
-    </div>
-
-    <div class="msg left">
-      <img src="avatar-andrey.jpg" class="avatar">
-      <div class="bubble">
-        Зимой мы поехали в Тольятти...
-        <span class="time">22:15</span>
-      </div>
-    </div>
-
-    <div class="msg right">
-      <img src="avatar-natasha.jpg" class="avatar">
-      <div class="bubble">
-        Теперь мы приглашаем вас разделить с нами этот день 🤍
-        <span class="time">22:18</span>
-      </div>
-    </div>
+<div class="msg right fast">
+  <img src="avatar-natasha.jpg" class="avatar">
+  <div class="bubble">
+    ахах ну после такого нельзя отказаться 😂
+    <span class="time">18:17</span>
+  </div>
+</div>
 
   </div>
 </div>
@@ -2241,78 +2257,108 @@ document.querySelectorAll('.story-paragraph').forEach((p, index) => {
 </script>
 //“печатает…”
 <script>
+<script>
 const messages = document.querySelectorAll('.msg');
 const chat = document.querySelector('.chat-body');
 
-// звук Telegram
 const tgSound = new Audio('https://notificationsounds.com/storage/sounds/file-sounds-1152-pristine.mp3');
-tgSound.volume = 0.3;
+tgSound.volume = 0.25;
 
-// скрываем все сообщения
 messages.forEach(msg => msg.style.display = 'none');
 
 function delay(ms) {
   return new Promise(res => setTimeout(res, ms));
 }
 
-// typing индикатор
-function showTyping(side, avatar) {
+function showTyping(name, side, avatar) {
   const typing = document.createElement('div');
   typing.className = 'msg ' + side;
+
   typing.innerHTML = `
     <img src="${avatar}" class="avatar">
     <div class="bubble typing">
+      ${name} печатает
       <span></span><span></span><span></span>
     </div>
   `;
+
   chat.appendChild(typing);
+  chat.scrollTop = chat.scrollHeight;
 
   return typing;
 }
 
-// показ сообщений по одному
+// ❤️ реакции
+function addReaction(bubble) {
+  if (bubble.querySelector('.reaction')) return;
+
+  const reaction = document.createElement('div');
+  reaction.className = 'reaction';
+  reaction.innerText = '❤️';
+
+  bubble.appendChild(reaction);
+
+  reaction.animate([
+    { transform: 'scale(0)', opacity: 0 },
+    { transform: 'scale(1.2)', opacity: 1 },
+    { transform: 'scale(1)', opacity: 1 }
+  ], { duration: 300 });
+}
+
+// тап по сообщению
+document.addEventListener('click', (e) => {
+  if (e.target.closest('.bubble')) {
+    addReaction(e.target.closest('.bubble'));
+  }
+});
+
 async function runChat() {
 
   for (let i = 0; i < messages.length; i++) {
 
     const msg = messages[i];
+
     const side = msg.classList.contains('right') ? 'right' : 'left';
     const avatar = msg.querySelector('.avatar').src;
 
-    // показываем "печатает..."
-    const typing = showTyping(side, avatar);
+    const name = side === 'right' ? 'Наташа' : 'Андрей';
 
-    // случайная задержка (интрига!)
-    const typingTime = 1200 + Math.random() * 2000;
+    // характер скорости
+    let typingTime;
+
+    if (msg.classList.contains('slow')) {
+      typingTime = 2000 + Math.random() * 2000; // тупит 😄
+    } else if (msg.classList.contains('fast')) {
+      typingTime = 600 + Math.random() * 800; // быстро отвечает
+    } else {
+      typingTime = 1200;
+    }
+
+    // typing
+    const typing = showTyping(name, side, avatar);
     await delay(typingTime);
-
     typing.remove();
 
-    // показываем сообщение
+    // сообщение
     msg.style.display = 'flex';
 
     msg.animate([
       { transform: 'translateY(10px)', opacity: 0 },
       { transform: 'translateY(0)', opacity: 1 }
-    ], {
-      duration: 300,
-      easing: 'ease-out'
-    });
+    ], { duration: 250 });
 
-    // звук
     tgSound.currentTime = 0;
     tgSound.play().catch(() => {});
 
-    // пауза перед следующим сообщением
-    await delay(800 + Math.random() * 1200);
+    // пауза с характером
+    await delay(700 + Math.random() * 1200);
 
-    // автоскролл вниз
     chat.scrollTop = chat.scrollHeight;
   }
 }
 
-// запуск
-setTimeout(runChat, 800);
+setTimeout(runChat, 1000);
+</script>
 </script>
 </body>
 </html>
