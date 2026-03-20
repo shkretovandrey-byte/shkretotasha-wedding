@@ -2199,7 +2199,8 @@ if (window.innerWidth <= 700) {
 }      
     })();
 // ===== GALLERY CAROUSEL =====
-document.addEventListener('DOMContentLoaded', () => { const track = document.getElementById('galleryTrack');});
+// ===== GALLERY CAROUSEL =====
+const track = document.getElementById('galleryTrack');
 const slides = document.querySelectorAll('.gallery-slide');
 const prevBtn = document.querySelector('.carousel-btn.prev');
 const nextBtn = document.querySelector('.carousel-btn.next');
@@ -2207,18 +2208,22 @@ const nextBtn = document.querySelector('.carousel-btn.next');
 let index = 0;
 
 function updateCarousel() {
-  track.style.transform = `translateX(-${index * 100}%)`;
+  if (track) {
+    track.style.transform = `translateX(-${index * 100}%)`;
+  }
 }
 
-nextBtn.addEventListener('click', () => {
-  index = (index + 1) % slides.length;
-  updateCarousel();
-});
+if (prevBtn && nextBtn && slides.length) {
+  nextBtn.addEventListener('click', () => {
+    index = (index + 1) % slides.length;
+    updateCarousel();
+  });
 
-prevBtn.addEventListener('click', () => {
-  index = (index - 1 + slides.length) % slides.length;
-  updateCarousel();
-});    
+  prevBtn.addEventListener('click', () => {
+    index = (index - 1 + slides.length) % slides.length;
+    updateCarousel();
+  });
+}
   </script>
 
    <!-- SUCCESS OVERLAY -->
