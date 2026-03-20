@@ -1402,6 +1402,8 @@
   </section>
 
   <!-- ИСТОРИЯ ЛЮБВИ -->
+  <section class="container">
+  <h2 class="section-title">История любви</h2>
   <div class="chat">
 
   <div class="chat-header">
@@ -1411,7 +1413,7 @@
       <div class="chat-status">был(а) недавно</div>
     </div>
   </div>
-
+ <div class="chat-body">  
   <div class="msg left slow">
   <img src="avatar-andrey.jpg" class="avatar">
   <div class="bubble">
@@ -1419,7 +1421,7 @@
     <span class="time">18:12</span>
   </div>
 </div>
-
+</div>
 <div class="msg right fast">
   <img src="avatar-natasha.jpg" class="avatar">
   <div class="bubble">
@@ -1454,7 +1456,6 @@
 </div>
 
   </div>
-</div>
 
   <!-- МЕМ 1 -->
 <section class="container">
@@ -2192,7 +2193,7 @@ if (window.innerWidth <= 700) {
 }      
     })();
 // ===== GALLERY CAROUSEL =====
-const track = document.getElementById('galleryTrack');
+document.addEventListener('DOMContentLoaded', () => { const track = document.getElementById('galleryTrack');});
 const slides = document.querySelectorAll('.gallery-slide');
 const prevBtn = document.querySelector('.carousel-btn.prev');
 const nextBtn = document.querySelector('.carousel-btn.next');
@@ -2256,7 +2257,6 @@ document.querySelectorAll('.story-paragraph').forEach((p, index) => {
 });
 </script>
 //“печатает…”
-<script>
 <script>
 const messages = document.querySelectorAll('.msg');
 const chat = document.querySelector('.chat-body');
@@ -2359,6 +2359,6 @@ async function runChat() {
 
 setTimeout(runChat, 1000);
 </script>
-</script>
+
 </body>
 </html>
