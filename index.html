@@ -1285,6 +1285,64 @@
     max-width: 85%;
   }
 }
+
+        /* Блок программы с размытием */
+    .program-blur-wrapper {
+      position: relative;
+      overflow: hidden;
+      border-radius: 20px;
+    }
+    .blur-content {
+      filter: blur(5px);
+      transition: filter 0.3s ease;
+      pointer-events: none; /* чтобы нельзя было кликнуть на элементы внутри */
+    }
+    .program-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(2px);
+      text-align: center;
+      z-index: 2;
+      pointer-events: none; /* оверлей не перехватывает клики */
+    }
+    .overlay-image {
+      max-width: 220px;
+      width: 80%;
+      border-radius: 16px;
+      margin-bottom: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+    .overlay-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      font-weight: 600;
+      color: #0039a6;
+      background: white;
+      padding: 8px 20px;
+      border-radius: 40px;
+      display: inline-block;
+      box-shadow: 0 4px 0 #d52b1e;
+    }
+    @media (max-width: 700px) {
+      .overlay-text {
+        font-size: 18px;
+        padding: 6px 16px;
+      }
+      .overlay-image {
+        max-width: 160px;
+      }
+      .blur-content {
+        filter: blur(4px);
+      }
+    }
   </style>
 </head>
 <body>
@@ -1400,14 +1458,20 @@
   </div>
 </section>
 
-  <!-- ПРОГРАММА ДНЯ -->
+    <!-- ПРОГРАММА ДНЯ (в разработке) -->
   <section class="container">
     <h2 class="section-title">Программа дня</h2>
-    <div class="timeline">
-      <div class="timeline-item"><span class="time">17:00</span> сбор гостей, приветственный фуршет</div>
-      <div class="timeline-item"><span class="time">17:30</span> приветственное слово молодожёнов</div>
-      <div class="timeline-item"><span class="time">18:00</span> ужин, развлекательная программа</div>
-      <div class="timeline-item"><span class="time">23:00</span> завершение вечера, фейерверк</div>
+    <div class="program-blur-wrapper">
+      <div class="timeline blur-content">
+        <div class="timeline-item"><span class="time">17:00</span> сбор гостей, приветственный фуршет</div>
+        <div class="timeline-item"><span class="time">17:30</span> приветственное слово молодожёнов</div>
+        <div class="timeline-item"><span class="time">18:00</span> ужин, развлекательная программа</div>
+        <div class="timeline-item"><span class="time">23:00</span> завершение вечера, фейерверк</div>
+      </div>
+      <div class="program-overlay">
+        <img src="https://f.nodacdn.net/309636" alt="Раздел в разработке" class="overlay-image">
+        <p class="overlay-text">✨ Раздел в разработке ✨</p>
+      </div>
     </div>
   </section>
 
